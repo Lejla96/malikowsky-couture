@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malikowsky Couture – Haute Couture · Bitola, North Macedonia</title>
+  <meta name="description" content="Malikowsky Couture – Romani haute couture by Muamed Malikovski. Handcrafted gowns from Bitola, North Macedonia."/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@100;200;300;400&family=Great+Vibes&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark: #8B6914;
+      --black: #000000;
+      --off-black: #0a0a0a;
+      --charcoal: #0d0d0d;
+      --white: #ffffff;
+      --off-white: #f5f0e8;
+      --text-muted: #777;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 200;
+      letter-spacing: 0.05em;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 24px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(0,0,0,0.94);
+      backdrop-filter: blur(16px);
+      padding: 14px 60px;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+    .nav-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.9rem; color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--off-white); text-decoration: none;
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      transition: color 0.3s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: var(--gold); transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .lang-toggle { display: flex; align-items: center; gap: 6px; }
+    .lang-btn {
+      background: none; border: none; color: var(--text-muted); cursor: pointer;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 4px 8px; transition: color 0.3s;
+    }
+    .lang-btn.active { color: var(--gold); border-bottom: 1px solid var(--gold); }
+    .lang-sep { color: rgba(201,168,76,0.25); font-size: 0.6rem; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 22px; height: 1px; background: var(--gold); transition: all 0.3s; }
+
+    .mobile-nav {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.97); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { color: var(--off-white); text-decoration: none; font-size: 1.1rem; letter-spacing: 0.2em; text-transform: uppercase; transition: color 0.3s; }
+    .mobile-nav a:hover { color: var(--gold); }
+    .close-nav { position: absolute; top: 24px; right: 28px; font-size: 1.4rem; color: var(--gold); cursor: pointer; background: none; border: none; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: radial-gradient(ellipse at center top, #150d00 0%, #000 55%);
+    }
+    .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .particle {
+      position: absolute; width: 2px; height: 2px;
+      background: var(--gold); border-radius: 50%;
+      animation: floatUp linear infinite; opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh); opacity: 0; }
+      10%  { opacity: 0.5; }
+      90%  { opacity: 0.2; }
+      100% { transform: translateY(-80px); opacity: 0; }
+    }
+    .shimmer { position: absolute; width: 1px; background: linear-gradient(to bottom, transparent, var(--gold-light), transparent); opacity: 0.12; animation: shimPulse 3s ease-in-out infinite; }
+    @keyframes shimPulse { 0%,100%{opacity:0.07} 50%{opacity:0.22} }
+
+    .hero-inner { position: relative; z-index: 2; text-align: center; padding: 0 24px; }
+
+    .hero-logo-wrap { margin-bottom: 44px; animation: logoIn 1.6s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes logoIn { from{opacity:0;transform:scale(0.82) translateY(20px);filter:blur(10px)} to{opacity:1;transform:scale(1) translateY(0);filter:blur(0)} }
+
+    .hero-logo-img {
+      width: 240px; height: 240px; object-fit: contain;
+      filter: drop-shadow(0 0 50px rgba(201,168,76,0.45));
+    }
+
+    .hero-eyebrow { font-size: 0.62rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; animation: fadeUp 1s 0.9s both; display: block; }
+    .hero-title { font-family: 'Great Vibes', cursive; font-size: clamp(3.8rem,9vw,7.5rem); color: var(--white); line-height: 1; margin-bottom: 10px; animation: fadeUp 1s 1.1s both; }
+    .hero-sub { font-size: 0.68rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; animation: fadeUp 1s 1.2s both; display: block; }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.1rem,2.4vw,1.55rem); color: var(--off-white); opacity: 0.82;
+      max-width: 580px; line-height: 1.65; margin: 0 auto 48px;
+      animation: fadeUp 1s 1.4s both;
+    }
+    .hero-cta { animation: fadeUp 1s 1.6s both; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+    .btn-gold {
+      display: inline-block; padding: 14px 38px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--black); text-decoration: none;
+      font-size: 0.63rem; letter-spacing: 0.25em; text-transform: uppercase;
+      transition: all 0.35s; border: 1px solid var(--gold); position: relative; overflow: hidden;
+    }
+    .btn-gold::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); opacity:0; transition:opacity 0.35s; }
+    .btn-gold:hover::before { opacity:1; }
+    .btn-gold span { position:relative; z-index:1; }
+    .btn-outline {
+      display: inline-block; padding: 14px 38px;
+      border: 1px solid rgba(201,168,76,0.45); color: var(--gold); background: transparent;
+      text-decoration: none; font-size: 0.63rem; letter-spacing: 0.25em; text-transform: uppercase;
+      transition: all 0.35s;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+
+    .scroll-ind {
+      position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      animation: fadeUp 1s 2s both;
+    }
+    .scroll-ind span { font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+    .scroll-line { width: 1px; height: 38px; background: linear-gradient(to bottom, var(--gold), transparent); animation: lineAnim 2s ease-in-out infinite; }
+    @keyframes lineAnim { 0%,100%{opacity:0.5;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.2)} }
+
+    /* ─── MARQUEE ─── */
+    .marquee-strip { background: var(--gold); padding: 12px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-block; animation: marquee 28s linear infinite; }
+    .marquee-track span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--black); font-weight: 400; margin: 0 28px; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ─── SHARED SECTION ─── */
+    .section-tag { font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 14px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 300; line-height: 1.1; margin-bottom: 14px; color: var(--white); }
+    .section-title em { font-style: italic; color: var(--gold-light); }
+    .section-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; line-height: 1.95; color: rgba(255,255,255,0.6); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s ease, transform 0.85s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── GALLERY ─── */
+    #collections { padding: 110px 50px; background: var(--charcoal); }
+    .coll-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 60px; flex-wrap: wrap; gap: 24px; }
+
+    /* Masonry grid */
+    .gallery-masonry {
+      columns: 4;
+      column-gap: 12px;
+    }
+    .gal-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: #0d0d0d;
+    }
+    .gal-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .gal-item:hover::after { opacity: 1; }
+    .gal-item img {
+      width: 100%; display: block;
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .gal-item:hover img { transform: scale(1.05); }
+    .gal-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 16px 18px; z-index: 2;
+      transform: translateY(6px); opacity: 0;
+      transition: all 0.4s;
+    }
+    .gal-item:hover .gal-label { transform: translateY(0); opacity: 1; }
+    .gal-label span { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+
+    /* Wide hero items */
+    .gal-wide { break-inside: avoid; column-span: none; }
+
+    /* ─── ABOUT ─── */
+    #about { padding: 120px 60px; background: var(--black); display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: start; }
+
+    .about-img-col { position: relative; }
+    .about-frame {
+      position: relative; padding: 18px;
+    }
+    .about-frame::before {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 65%; height: 65%;
+      border-top: 1px solid var(--gold); border-left: 1px solid var(--gold);
+      opacity: 0.35;
+    }
+    .about-frame::after {
+      content: ''; position: absolute; bottom: 0; right: 0;
+      width: 65%; height: 65%;
+      border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold);
+      opacity: 0.35;
+    }
+    .about-main-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(8%) contrast(1.05);
+      transition: filter 0.5s;
+    }
+    .about-main-img:hover {
+      filter: grayscale(0%) contrast(1.08);
+    }
+    .about-placeholder {
+      width: 100%; aspect-ratio: 3/4;
+      border: 1px dashed rgba(201,168,76,0.25);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; background: #080808; color: rgba(201,168,76,0.35);
+    }
+    .about-placeholder p { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+    .about-badge {
+      position: absolute; bottom: 36px; right: -18px;
+      background: var(--gold); color: var(--black);
+      padding: 18px 22px; text-align: center; z-index: 2;
+    }
+    .about-badge .num { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; line-height: 1; display: block; }
+    .about-badge .lbl { font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-top: 3px; }
+
+    .about-content {}
+    .about-content .section-desc { margin-bottom: 24px; }
+    .about-quote { border-left: 1px solid var(--gold); padding-left: 22px; margin: 36px 0; }
+    .about-quote blockquote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3rem; color: var(--gold-light); line-height: 1.7; }
+
+    .about-stats { display: flex; gap: 40px; margin: 36px 0; }
+    .stat { text-align: center; }
+    .stat .n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); line-height: 1; display: block; }
+    .stat .l { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); display: block; margin-top: 4px; }
+
+    /* ─── PRESS ─── */
+    #press { padding: 90px 60px; background: var(--charcoal); text-align: center; }
+    .press-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 50px; }
+    .press-card {
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 30px 28px;
+      max-width: 300px;
+      text-align: left;
+      transition: border-color 0.3s, background 0.3s;
+      text-decoration: none;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .press-card:hover { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+    .press-pub { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+    .press-headline { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--off-white); line-height: 1.5; }
+    .press-link { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(201,168,76,0.6); display: flex; align-items: center; gap: 6px; margin-top: auto; }
+    .press-link::after { content: '→'; }
+
+    /* ─── CONTACT ─── */
+    #contact { padding: 120px 60px; background: radial-gradient(ellipse at center, #0c0800 0%, #000 60%); text-align: center; }
+    .contact-inner { max-width: 680px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 36px; margin: 60px 0; }
+    .contact-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .contact-icon { width: 42px; height: 42px; border: 1px solid rgba(201,168,76,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); }
+    .contact-item h4 { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+    .contact-item p, .contact-item a { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.6; text-decoration: none; transition: color 0.3s; }
+    .contact-item a:hover { color: var(--gold); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 18px; text-align: left; margin-top: 48px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group label { font-size: 0.56rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+    .form-group input, .form-group textarea, .form-group select {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(201,168,76,0.18);
+      color: var(--white); padding: 13px 15px;
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      outline: none; transition: border-color 0.3s; width: 100%;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+    .form-group textarea { height: 120px; resize: vertical; }
+    .form-group select option { background: #111; }
+    .form-submit { text-align: center; margin-top: 8px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      padding: 56px 60px;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 36px;
+    }
+    .footer-left p { font-size: 0.58rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.28); line-height: 1.9; }
+    .footer-center { text-align: center; }
+    .footer-logo { font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: var(--gold); }
+    .footer-sub { font-size: 0.52rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(201,168,76,0.45); margin-top: 4px; }
+    .footer-right { text-align: right; }
+    .socials { display: flex; gap: 18px; justify-content: flex-end; }
+    .socials a { color: rgba(255,255,255,0.3); text-decoration: none; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.3s; }
+    .socials a:hover { color: var(--gold); }
+
+    /* ─── LIGHTBOX ─── */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 32px; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 88vw; max-height: 88vh; object-fit: contain; }
+    .lb-close { position: absolute; top: 22px; right: 26px; color: var(--gold); font-size: 1.4rem; cursor: pointer; background: none; border: none; }
+    .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 2rem; cursor: pointer; background: none; border: none; padding: 10px; opacity: 0.7; transition: opacity 0.3s; }
+    .lb-prev:hover, .lb-next:hover { opacity: 1; }
+    .lb-prev { left: 20px; }
+    .lb-next { right: 20px; }
+    .lb-counter { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); font-size: 0.58rem; letter-spacing: 0.25em; color: rgba(201,168,76,0.6); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      .gallery-masonry { columns: 3; }
+      #about { grid-template-columns: 1fr; gap: 60px; }
+      .about-badge { right: 0; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #collections, #press, #contact { padding: 80px 24px; }
+      #about { padding: 80px 24px; }
+      .gallery-masonry { columns: 2; }
+      .contact-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; text-align: center; }
+      .socials { justify-content: center; }
+      .footer-right { text-align: center; }
+      .about-stats { gap: 24px; }
+      .press-grid { flex-direction: column; align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .gallery-masonry { columns: 1; }
+      .hero-logo-img { width: 180px; height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="close-nav" onclick="closeMobileNav()">✕</button>
+  <a href="#collections" onclick="closeMobileNav()" data-en="Collections" data-mk="Колекции">Collections</a>
+  <a href="#about" onclick="closeMobileNav()" data-en="About" data-mk="За Дизајнерот">About</a>
+  <a href="#press" onclick="closeMobileNav()" data-en="Press" data-mk="Медиуми">Press</a>
+  <a href="#contact" onclick="closeMobileNav()" data-en="Contact" data-mk="Контакт">Contact</a>
+  <div class="lang-toggle" style="margin-top:16px;">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn" onclick="setLang('mk')">MK</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">Malikowsky</a>
+  <ul class="nav-links">
+    <li><a href="#collections" data-en="Collections" data-mk="Колекции">Collections</a></li>
+    <li><a href="#about" data-en="About the Designer" data-mk="За Дизајнерот">About the Designer</a></li>
+    <li><a href="#press" data-en="Press" data-mk="Медиуми">Press</a></li>
+    <li><a href="#contact" data-en="Contact" data-mk="Контакт">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:18px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" onclick="setLang('mk')">MK</button>
+    </div>
+    <div class="hamburger" onclick="openMobileNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="particles" id="particles"></div>
+  <div class="shimmer" style="left:12%;height:45%;top:8%;animation-delay:0s;"></div>
+  <div class="shimmer" style="left:48%;height:65%;top:0;animation-delay:1.3s;"></div>
+  <div class="shimmer" style="left:82%;height:38%;top:18%;animation-delay:0.7s;"></div>
+
+  <div class="hero-inner">
+    <div class="hero-logo-wrap">
+      <!--
+        TO ACTIVATE LOGO: Place your logo image file in the same folder as this HTML
+        and rename it to: malikowsky-logo.png
+      -->
+      <img class="hero-logo-img" src="malikowsky-logo.png" alt="Malikowsky Couture"
+        onerror="this.style.display='none';" />
+    </div>
+
+    <span class="hero-eyebrow" data-en="Haute Couture · Bitola, North Macedonia" data-mk="Висока Мода · Битола, Северна Македонија">Haute Couture · Bitola, North Macedonia</span>
+    <h1 class="hero-title">Malikowsky</h1>
+    <span class="hero-sub" data-en="Couture" data-mk="Couture">Couture</span>
+    <p class="hero-tagline" data-en="Where Romani heritage meets the art of haute couture — each gown a story, each stitch a legacy." data-mk="Каде ромското наследство се среќава со уметноста на висока мода — секоја фустан е приказна, секој убод е наследство.">
+      Where Romani heritage meets the art of haute couture — each gown a story, each stitch a legacy.
+    </p>
+    <div class="hero-cta">
+      <a href="#collections" class="btn-gold"><span data-en="Explore Collections" data-mk="Истражи Колекции">Explore Collections</span></a>
+      <a href="#contact" class="btn-outline" data-en="Inquire Now" data-mk="Направи Барање">Inquire Now</a>
+    </div>
+  </div>
+
+  <div class="scroll-ind">
+    <span data-en="Scroll" data-mk="Скролај">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Haute Couture</span><span>·</span>
+    <span>Malikowsky</span><span>·</span>
+    <span data-en="Handcrafted Excellence" data-mk="Рачна Изработка">Handcrafted Excellence</span><span>·</span>
+    <span>North Macedonia</span><span>·</span>
+    <span data-en="Romani Heritage" data-mk="Ромско Наследство">Romani Heritage</span><span>·</span>
+    <span>Bitola</span><span>·</span>
+    <span data-en="Luxury Design" data-mk="Луксузен Дизајн">Luxury Design</span><span>·</span>
+    <span>Muamed Malikovski</span><span>·</span>
+    <span data-en="Original Creations" data-mk="Оригинални Творби">Original Creations</span><span>·</span>
+    <!-- repeated for seamless loop -->
+    <span>Haute Couture</span><span>·</span>
+    <span>Malikowsky</span><span>·</span>
+    <span data-en="Handcrafted Excellence" data-mk="Рачна Изработка">Handcrafted Excellence</span><span>·</span>
+    <span>North Macedonia</span><span>·</span>
+    <span data-en="Romani Heritage" data-mk="Ромско Наследство">Romani Heritage</span><span>·</span>
+    <span>Bitola</span><span>·</span>
+    <span data-en="Luxury Design" data-mk="Луксузен Дизајн">Luxury Design</span><span>·</span>
+    <span>Muamed Malikovski</span><span>·</span>
+    <span data-en="Original Creations" data-mk="Оригинални Творби">Original Creations</span><span>·</span>
+  </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="coll-header reveal">
+    <div>
+      <span class="section-tag" data-en="The Gallery" data-mk="Галеријата">The Gallery</span>
+      <h2 class="section-title" data-en="<em>Crafted</em> Collections" data-mk="<em>Создадени</em> Колекции"><em>Crafted</em> Collections</h2>
+      <p class="section-desc" style="max-width:480px" data-en="Each piece is an original — born from passion, shaped by culture, and finished with the precision of a master craftsman." data-mk="Секое парче е оригинал — роден од страст, обликуван од култура и завршен со прецизноста на мајстор занаетчија.">
+        Each piece is an original — born from passion, shaped by culture, and finished with the precision of a master craftsman.
+      </p>
+    </div>
+    <a href="#contact" class="btn-outline" data-en="Request a Custom Piece" data-mk="Нарачај Парче по Мерка">Request a Custom Piece</a>
+  </div>
+
+  <!--
+    ════════════════════════════════════════════════════════════
+    HOW TO ADD YOUR PHOTOS:
+    1. Place this HTML file and all dress photos in the SAME folder
+    2. Rename your photos to: dress1.jpg, dress2.jpg ... dress16.jpg
+       (or update the src= values below to match your filenames)
+    3. Open the HTML file in a browser — photos will appear
+    ════════════════════════════════════════════════════════════
+  -->
+  <div class="gallery-masonry reveal" id="galleryGrid">
+
+    <div class="gal-item" data-index="0" onclick="openLB(0)">
+      <img src="dress1.png" alt="Black & Gold Gala Gown" />
+      <div class="gal-label"><span data-en="Evening Gala" data-mk="Вечерна Гала">Evening Gala</span></div>
+    </div>
+
+    <div class="gal-item" data-index="1" onclick="openLB(1)">
+      <img src="dress2.png" alt="Ivory Bridal Gown" />
+      <div class="gal-label"><span data-en="Bridal Couture" data-mk="Свадбена Мода">Bridal Couture</span></div>
+    </div>
+
+    <div class="gal-item" data-index="2" onclick="openLB(2)">
+      <img src="dress3.png" alt="Gold Fringe Gown" />
+      <div class="gal-label"><span data-en="Gold Fringe Collection" data-mk="Золатна Ресна Колекција">Gold Fringe Collection</span></div>
+    </div>
+
+    <div class="gal-item" data-index="3" onclick="openLB(3)">
+      <img src="dress4.jpg" alt="Peach Ruffled Gown" />
+      <div class="gal-label"><span data-en="Blossom Collection" data-mk="Колекција Цветови">Blossom Collection</span></div>
+    </div>
+
+    <div class="gal-item" data-index="4" onclick="openLB(4)">
+      <img src="dress5.jpg" alt="Royal Blue Sequin Gown" />
+      <div class="gal-label"><span data-en="Royal Blue" data-mk="Кралско Сино">Royal Blue</span></div>
+    </div>
+
+    <div class="gal-item" data-index="5" onclick="openLB(5)">
+      <img src="dress6.jpg" alt="Turquoise Romani Gown" />
+      <div class="gal-label"><span data-en="Heritage · Turquoise" data-mk="Наследство · Тиркизна">Heritage · Turquoise</span></div>
+    </div>
+
+    <div class="gal-item" data-index="6" onclick="openLB(6)">
+      <img src="dress7.jpg" alt="Black Draped Ensemble" />
+      <div class="gal-label"><span data-en="Night Noir" data-mk="Ноќен Ноар">Night Noir</span></div>
+    </div>
+
+    <div class="gal-item" data-index="7" onclick="openLB(7)">
+      <img src="dress8.jpg" alt="Pink Sparkle Ball Gown" />
+      <div class="gal-label"><span data-en="Rose Gold" data-mk="Розово Злато">Rose Gold</span></div>
+    </div>
+
+    <div class="gal-item" data-index="8" onclick="openLB(8)">
+      <img src="dress9.jpg" alt="Burgundy & Gold Velvet" />
+      <div class="gal-label"><span data-en="Imperial Velvet" data-mk="Царски Кадифе">Imperial Velvet</span></div>
+    </div>
+
+    <div class="gal-item" data-index="9" onclick="openLB(9)">
+      <img src="dress10.jpg" alt="Royal Blue Ball Gown" />
+      <div class="gal-label"><span data-en="Sapphire Ball" data-mk="Сафирска Топка">Sapphire Ball</span></div>
+    </div>
+
+    <div class="gal-item" data-index="10" onclick="openLB(10)">
+      <img src="dress11.jpg" alt="White Bridal Gown with Veil" />
+      <div class="gal-label"><span data-en="Bridal Heritage" data-mk="Свадбено Наследство">Bridal Heritage</span></div>
+    </div>
+
+    <div class="gal-item" data-index="11" onclick="openLB(11)">
+      <img src="dress12.jpg" alt="Pink Mauve Tiered Gown" />
+      <div class="gal-label"><span data-en="Romantic Layers" data-mk="Романтични Слоеви">Romantic Layers</span></div>
+    </div>
+
+    <div class="gal-item" data-index="12" onclick="openLB(12)">
+      <img src="dress13.jpg" alt="Burgundy Ottoman Embroidery" />
+      <div class="gal-label"><span data-en="Ottoman Gold" data-mk="Отоманско Злато">Ottoman Gold</span></div>
+    </div>
+
+    <div class="gal-item" data-index="13" onclick="openLB(13)">
+      <img src="dress14.jpg" alt="All Red Ruffled Ensemble" />
+      <div class="gal-label"><span data-en="Crimson Passion" data-mk="Кримзон Страст">Crimson Passion</span></div>
+    </div>
+
+    <div class="gal-item" data-index="14" onclick="openLB(14)">
+      <img src="dress15.png" alt="Gold Cape Gown" />
+      <div class="gal-label"><span data-en="Golden Queen" data-mk="Златна Кралица">Golden Queen</span></div>
+    </div>
+
+    <div class="gal-item" data-index="15" onclick="openLB(15)">
+      <img src="dress16.png" alt="Black Embroidered Gown with Feathers" />
+      <div class="gal-label"><span data-en="Midnight Embroidery" data-mk="Полноќно Везење">Midnight Embroidery</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-img-col reveal">
+    <div class="about-frame">
+      <!--
+        Place a portrait photo of the designer named: designer.jpg
+        in the same folder as this HTML file
+      -->
+      <!--
+        DESIGNER PORTRAIT: Save the designer's photo as "designer.jpg"
+        in the same folder as this HTML file. It will appear here automatically.
+      -->
+      <img class="about-main-img" src="designer.jpg" alt="Muamed Malikovski – Malikowsky Couture"
+        onerror="this.src='dress15.png';" />
+    </div>
+    <div class="about-badge">
+      <span class="num">20+</span>
+      <span class="lbl" data-en="Years Creating" data-mk="Години Создавање">Years Creating</span>
+    </div>
+  </div>
+
+  <div class="about-content reveal">
+    <span class="section-tag" data-en="The Visionary" data-mk="Визионерот">The Visionary</span>
+    <h2 class="section-title" data-en="About <em>Malikowsky</em>" data-mk="За <em>Маликовски</em>">About <em>Malikowsky</em></h2>
+
+    <p class="section-desc" data-en="Muamed Malikovski — known to the world as Malikowsky — is the only Romani haute couturier in North Macedonia. Born in Bitola into an artisan family, he showed a passion for art from childhood but was steered toward law, achieving top marks before making the defining choice to follow his true calling." data-mk="Муамед Маликовски — познат во светот како Маликовски — е единствениот ромски кутурие на висока мода во Македонија. Роден во Битола во занаетчиско семејство, уште од мал покажал страст кон уметноста, но бил насочен кон правото, постигнувајќи одлични оценки пред да донесе пресудна одлука да го следи своето вистинско призвание.">
+      Muamed Malikovski — known to the world as Malikowsky — is the only Romani haute couturier in North Macedonia. Born in Bitola into an artisan family, he showed a passion for art from childhood but was steered toward law, achieving top marks before making the defining choice to follow his true calling.
+    </p>
+
+    <div class="about-quote">
+      <blockquote data-en="&ldquo;Everyone around me expected me to be someone that wasn't me, someone I've never met in my soul. I knew it — I decided to listen to my heart and follow my dreams.&rdquo;" data-mk="&ldquo;Сите околу мене очекуваа да бидам некој друг, некој кого никогаш не сум го сретнал во душата. Знаев тоа — решив да го слушнам срцето и да ги следам моите соништа.&rdquo;">
+        &ldquo;Everyone around me expected me to be someone that wasn't me, someone I've never met in my soul. I knew it — I decided to listen to my heart and follow my dreams.&rdquo;
+      </blockquote>
+    </div>
+
+    <p class="section-desc" data-en="Without family support and constantly told &ldquo;you can't do it,&rdquo; Muamed enrolled at the Faculty of Fashion Design at Goce Delchev University in Stip. He created his very first design at age 16. His breakthrough came with support from ERIAC (European Roma Institute for Arts and Culture) and the EU-funded Roma Digital Boost programme, which helped him transform passion into a globally recognized brand." data-mk="Без поддршка од семејството и постојано слушајќи „нема да успееш", Муамед се запишал на Факултетот за моден дизајн при Универзитетот Гоце Делчев во Штип. Неговата прва креација ја дизајнирал на 16 години. Пресвртот дошол со поддршка од ERIAC и ЕУ-финансираниот проект Roma Digital Boost, кои му помогнале да ја претвори страста во глобално препознатлив бренд.">
+      Without family support and constantly told &ldquo;you can't do it,&rdquo; Muamed enrolled at the Faculty of Fashion Design at Goce Delchev University in Stip. He created his very first design at age 16. His breakthrough came with support from ERIAC (European Roma Institute for Arts and Culture) and the EU-funded Roma Digital Boost programme, which helped him transform passion into a globally recognized brand.
+    </p>
+
+    <div class="about-stats">
+      <div class="stat">
+        <span class="n">🏆</span>
+        <span class="l" data-en="Miss Freedom<br/>of the World" data-mk="Мис Слобода<br/>на Светот">Miss Freedom<br/>of the World</span>
+      </div>
+      <div class="stat">
+        <span class="n">10+</span>
+        <span class="l" data-en="Countries<br/>Served" data-mk="Земји<br/>Клиенти">Countries<br/>Served</span>
+      </div>
+      <div class="stat">
+        <span class="n">∞</span>
+        <span class="l" data-en="Unique<br/>Pieces" data-mk="Единствени<br/>Парчиња">Unique<br/>Pieces</span>
+      </div>
+    </div>
+
+    <p class="section-desc" data-en="His &ldquo;Aurora&rdquo; design won 2nd place in the Miss Freedom of the World competition; another creation was named Best National Costume at Miss Summer 2021 in Albania. Today his gowns are worn by clients across Macedonia, Serbia, Germany, Switzerland, Belgium, France, England, Sweden, and as far as Melbourne, Australia. His greatest inspirations are Baroque luxury, Oriental culture from his Muslim roots, and the rich artistic heritage of Roma folklore and tradition." data-mk="Неговиот дизајн „Аурора" освоил второ место на натпреварот Мис Слобода на Светот; друга негова творба е прогласена за најдобра национална носија на Мис Саммер 2021 во Албанија. Денес неговите фустани ги носат клиенти од Македонија, Србија, Германија, Швајцарија, Белгија, Франција, Англија, Шведска и дури од Мелбурн, Австралија. Неговите најголеми инспирации се барокниот луксуз, ориенталната култура и богатото уметничко наследство на ромскиот фолклор и традиција.">
+      His &ldquo;Aurora&rdquo; design won 2nd place in the Miss Freedom of the World competition; another creation was named Best National Costume at Miss Summer 2021 in Albania. Today his gowns are worn by clients across Macedonia, Serbia, Germany, Switzerland, Belgium, France, England, Sweden, and as far as Melbourne, Australia. His greatest inspirations are Baroque luxury, Oriental culture from his Muslim roots, and the rich artistic heritage of Roma folklore and tradition.
+    </p>
+
+    <div class="about-quote" style="margin-top: 30px;">
+      <blockquote data-en="&ldquo;No matter how discouraging the circumstances, there is always a path to success. Even if it seems impossible to others — let&rsquo;s create stories worth telling loudly and proudly.&rdquo;" data-mk="&ldquo;Колку и да демотивираат околностите, секогаш има пат до успехот. Дури и ако на другите им изгледа невозможно — ајде да создаваме приказни вредни за гласно и гордо раскажување.&rdquo;">
+        &ldquo;No matter how discouraging the circumstances, there is always a path to success. Even if it seems impossible to others — let&rsquo;s create stories worth telling loudly and proudly.&rdquo;
+      </blockquote>
+    </div>
+
+    <div style="margin-top: 36px;">
+      <a href="#contact" class="btn-gold"><span data-en="Commission a Gown" data-mk="Нарачај Фустан">Commission a Gown</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS -->
+<section id="press">
+  <div class="reveal">
+    <span class="section-tag" data-en="In the Media" data-mk="Во Медиумите">In the Media</span>
+    <h2 class="section-title" data-en="<em>Press</em> & Recognition" data-mk="<em>Медиуми</em> и Признание"><em>Press</em> & Recognition</h2>
+    <p class="section-desc" style="max-width:520px;margin:0 auto;" data-en="Malikowsky Couture has been featured across regional and European media, recognized as a trailblazing voice in contemporary Romani fashion." data-mk="Маликовски Кутур е претставен во регионалните и европските медиуми, признат како пионерски глас во современата ромска мода.">
+      Malikowsky Couture has been featured across regional and European media, recognized as a trailblazing voice in contemporary Romani fashion.
+    </p>
+  </div>
+
+  <div class="press-grid reveal">
+    <a class="press-card" href="https://webalkans.eu/en/stories/malikowsky-couture-a-new-fashion-brand-inspired-by-traditional-roma-costumes/" target="_blank" rel="noopener">
+      <span class="press-pub">Web Balkans</span>
+      <p class="press-headline" data-en="Malikowsky Couture: A New Fashion Brand Inspired by Traditional Roma Costumes" data-mk="Маликовски Кутур: Нов Моден Бренд Инспириран од Традиционални Ромски Носии">Malikowsky Couture: A New Fashion Brand Inspired by Traditional Roma Costumes</p>
+      <span class="press-link" data-en="Read Article" data-mk="Прочитај Статија">Read Article</span>
+    </a>
+
+    <a class="press-card" href="https://citaj.be/intervju-so-muamed-malikovski/" target="_blank" rel="noopener">
+      <span class="press-pub">Citaj.be</span>
+      <p class="press-headline" data-en="Interview with Muamed Malikovski — The Couturier from Bitola" data-mk="Интервју со Муамед Маликовски — Кутурието од Битола">Interview with Muamed Malikovski — The Couturier from Bitola</p>
+      <span class="press-link" data-en="Read Article" data-mk="Прочитај Статија">Read Article</span>
+    </a>
+
+    <a class="press-card" href="https://smart.sdk.mk/stil/kolku-i-da-demotiviraat-okolnostite-sekogash-ima-pat-do-uspehot-veli-modniot-kreator-muamed-malikovski/" target="_blank" rel="noopener">
+      <span class="press-pub">Smart SDK</span>
+      <p class="press-headline" data-en="No Matter How Discouraging the Circumstances, There Is Always a Path to Success" data-mk="Колку и да Демотивираат Околностите, Секогаш Има Пат до Успехот">No Matter How Discouraging the Circumstances, There Is Always a Path to Success</p>
+      <span class="press-link" data-en="Read Article" data-mk="Прочитај Статија">Read Article</span>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <span class="section-tag" data-en="Get in Touch" data-mk="Контактирајте нè">Get in Touch</span>
+      <h2 class="section-title" data-en="<em>Begin</em> Your Story" data-mk="<em>Започни</em> Ја Вашата Приказна"><em>Begin</em> Your Story</h2>
+      <p class="section-desc" style="margin:0 auto;max-width:540px;" data-en="Whether you dream of a bespoke bridal gown, an evening masterpiece, or a cultural celebration dress — Malikowsky Couture is ready to bring your vision to life." data-mk="Без разлика дали сонувате за невестинска фустан по мерка, вечерно ремек-дело или фустан за прослава — Маликовски Кутур е подготвен да ја оживее вашата визија.">
+        Whether you dream of a bespoke bridal gown, an evening masterpiece, or a cultural celebration dress — Malikowsky Couture is ready to bring your vision to life.
+      </p>
+    </div>
+
+    <div class="contact-grid reveal">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h4 data-en="Location" data-mk="Локација">Location</h4>
+        <p>Bitola,<br/>North Macedonia</p>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <h4 data-en="Email" data-mk="Е-пошта">Email</h4>
+        <a href="mailto:m.muamed@hotmail.com">m.muamed@hotmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <h4 data-en="Phone" data-mk="Телефон">Phone</h4>
+        <a href="tel:+38976477256">+389 76 477 256</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </div>
+        <h4>Instagram</h4>
+        <a href="https://www.instagram.com/malikowsky_official/" target="_blank">@malikowsky_official</a>
+      </div>
+    </div>
+
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label data-en="Full Name" data-mk="Целосно Име">Full Name</label>
+          <input type="text" required placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label data-en="Email Address" data-mk="Е-пошта">Email Address</label>
+          <input type="email" required placeholder="your@email.com" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label data-en="Type of Inquiry" data-mk="Вид на Барање">Type of Inquiry</label>
+        <select>
+          <option data-en="Select..." data-mk="Избери...">Select...</option>
+          <option data-en="Bridal Gown" data-mk="Невестинска Фустан">Bridal Gown</option>
+          <option data-en="Evening Dress" data-mk="Вечерна Облека">Evening Dress</option>
+          <option data-en="Custom Commission" data-mk="Нарачка по Мерка">Custom Commission</option>
+          <option data-en="General Inquiry" data-mk="Општо Прашање">General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label data-en="Your Message" data-mk="Вашата Порака">Your Message</label>
+        <textarea placeholder="Tell us about your dream piece..."></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn-gold"><span data-en="Send Message" data-mk="Испрати Порака">Send Message</span></button>
+      </div>
+    </form>
+    <div id="formOk" style="display:none;margin-top:28px;padding:18px;border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.05rem;">
+      <span data-en="Thank you — we will be in touch very soon." data-mk="Ви благодариме — наскоро ќе ве контактираме.">Thank you — we will be in touch very soon.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <p data-en="© 2024 Malikowsky Couture<br/>All rights reserved.<br/>Bitola, North Macedonia" data-mk="© 2024 Маликовски Кутур<br/>Сите права се задржани.<br/>Битола, Северна Македонија">
+      © 2024 Malikowsky Couture<br/>All rights reserved.<br/>Bitola, North Macedonia
+    </p>
+  </div>
+  <div class="footer-center">
+    <div class="footer-logo">Malikowsky</div>
+    <p class="footer-sub">Haute Couture · Bitola, MK</p>
+  </div>
+  <div class="footer-right">
+    <div class="socials">
+      <a href="https://www.instagram.com/malikowsky_official/" target="_blank" rel="noopener" data-en="Instagram" data-mk="Инстаграм">Instagram</a>
+      <a href="https://www.facebook.com/malikowskyy" target="_blank" rel="noopener" data-en="Facebook" data-mk="Фејсбук">Facebook</a>
+    </div>
+    <p style="font-size:0.52rem;letter-spacing:0.12em;color:rgba(255,255,255,0.18);margin-top:14px;" data-en="Handcrafted with passion in North Macedonia" data-mk="Рачно изработено со страст во Северна Македонија">Handcrafted with passion in North Macedonia</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <button class="lb-prev" onclick="prevLB()">‹</button>
+  <img src="" alt="" id="lbImg" />
+  <button class="lb-next" onclick="nextLB()">›</button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<script>
+  // ─── PARTICLES ───
+  const pc = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const s = Math.random() * 3 + 1;
+    p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s}px;animation-duration:${7+Math.random()*13}s;animation-delay:${Math.random()*12}s;`;
+    pc.appendChild(p);
+  }
+
+  // ─── NAV ───
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+  // ─── MOBILE NAV ───
+  function openMobileNav() { document.getElementById('mobileNav').classList.add('open'); }
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
+
+  // ─── REVEAL ───
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // ─── LANGUAGE ───
+  let lang = 'en';
+  function setLang(l) {
+    lang = l;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll(`[onclick="setLang('${l}')"]`).forEach(b => b.classList.add('active'));
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const v = el.getAttribute('data-' + l);
+      if (!v) return;
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = v;
+      else el.innerHTML = v;
+    });
+    document.querySelectorAll('select option[data-en]').forEach(o => {
+      const v = o.getAttribute('data-' + l);
+      if (v) o.text = v;
+    });
+  }
+
+  // ─── GALLERY LIGHTBOX ───
+  const imgs = Array.from(document.querySelectorAll('.gal-item img'));
+  let curIdx = 0;
+
+  function openLB(idx) {
+    const img = imgs[idx];
+    if (!img || img.naturalWidth === 0) return;
+    curIdx = idx;
+    updateLB();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function updateLB() {
+    document.getElementById('lbImg').src = imgs[curIdx].src;
+    document.getElementById('lbImg').alt = imgs[curIdx].alt;
+    document.getElementById('lbCounter').textContent = (curIdx + 1) + ' / ' + imgs.length;
+  }
+
+  function closeLB() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function prevLB() { curIdx = (curIdx - 1 + imgs.length) % imgs.length; updateLB(); }
+  function nextLB() { curIdx = (curIdx + 1) % imgs.length; updateLB(); }
+
+  document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLB(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLB();
+    if (e.key === 'ArrowLeft') prevLB();
+    if (e.key === 'ArrowRight') nextLB();
+  });
+
+  // ─── FORM ───
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('formOk').style.display = 'block';
+    e.target.style.display = 'none';
+  }
+</script>
+</body>
+</html>
