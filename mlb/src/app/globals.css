@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Champagne Gold */
+  --color-champagne-50: #fdf8f0;
+  --color-champagne-100: #f9ecd6;
+  --color-champagne-200: #f3d7ab;
+  --color-champagne-300: #ebbd77;
+  --color-champagne-400: #e4a34d;
+  --color-champagne-500: #dc8c2e;
+  --color-champagne-600: #c47323;
+  --color-champagne-700: #a3581f;
+  --color-champagne-800: #854720;
+  --color-champagne-900: #6d3b1e;
+
+  /* Ivory */
+  --color-ivory-50: #fefdfb;
+  --color-ivory-100: #fdf9f3;
+  --color-ivory-200: #faf3e6;
+  --color-ivory-300: #f5e8d0;
+  --color-ivory-400: #eddbb5;
+  --color-ivory-500: #e3c997;
+  --color-ivory-600: #d4b17a;
+  --color-ivory-700: #bc9461;
+  --color-ivory-800: #9a7a51;
+  --color-ivory-900: #7e6544;
+
+  /* Charcoal */
+  --color-charcoal-50: #f6f6f6;
+  --color-charcoal-100: #e7e7e7;
+  --color-charcoal-200: #d1d1d1;
+  --color-charcoal-300: #b0b0b0;
+  --color-charcoal-400: #888888;
+  --color-charcoal-500: #6d6d6d;
+  --color-charcoal-600: #5d5d5d;
+  --color-charcoal-700: #4f4f4f;
+  --color-charcoal-800: #454545;
+  --color-charcoal-900: #1a1a1a;
+
+  /* Fonts */
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.6s ease-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-scale-in: scale-in 0.3s ease-out;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-charcoal-900);
+  background-color: var(--color-ivory-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ivory-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-champagne-300);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-champagne-400);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-champagne-200);
+  color: var(--color-charcoal-900);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-champagne-500);
+  outline-offset: 2px;
+}
+
+/* Premium card hover effect */
+.premium-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Gold shimmer text */
+.gold-shimmer {
+  background: linear-gradient(135deg, var(--color-champagne-600), var(--color-champagne-400), var(--color-champagne-600));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Luxury gradient backgrounds */
+.luxury-gradient {
+  background: linear-gradient(135deg, var(--color-ivory-50) 0%, var(--color-champagne-50) 50%, var(--color-ivory-100) 100%);
+}
+
+.dark-luxury-gradient {
+  background: linear-gradient(135deg, var(--color-charcoal-900) 0%, #2a2520 50%, var(--color-charcoal-900) 100%);
+}
