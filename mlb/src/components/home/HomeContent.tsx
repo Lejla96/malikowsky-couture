@@ -6,6 +6,7 @@ import FeaturedVendors from "./FeaturedVendors";
 import HowItWorks from "./HowItWorks";
 import Testimonials from "./Testimonials";
 import CTASection from "./CTASection";
+import type { SiteContent } from "@/lib/content";
 
 interface Props {
   categories: Array<{
@@ -29,17 +30,18 @@ interface Props {
     coverPhoto?: string | null;
     category: { name: string; nameMk: string; slug: string };
   }>;
+  content: SiteContent;
 }
 
-export default function HomeContent({ categories, featuredVendors }: Props) {
+export default function HomeContent({ categories, featuredVendors, content }: Props) {
   return (
     <>
-      <HeroSection />
-      <CategoriesSection categories={categories} />
-      <FeaturedVendors vendors={featuredVendors} />
-      <HowItWorks />
-      <Testimonials />
-      <CTASection />
+      <HeroSection content={content.hero} />
+      <CategoriesSection categories={categories} content={content.categories} />
+      <FeaturedVendors vendors={featuredVendors} content={content.featured} />
+      <HowItWorks content={content.howItWorks} />
+      <Testimonials content={content.testimonials} />
+      <CTASection content={content.cta} />
     </>
   );
 }
