@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import VendorProfileContent from "@/components/vendors/VendorProfileContent";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ slug: string }>;
 }

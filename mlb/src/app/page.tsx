@@ -2,6 +2,8 @@ import HomeContent from "@/components/home/HomeContent";
 import prisma from "@/lib/prisma";
 import { seed } from "@/lib/seed";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   await seed();
 

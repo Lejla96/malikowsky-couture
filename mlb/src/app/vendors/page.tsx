@@ -1,6 +1,8 @@
 import VendorsContent from "@/components/vendors/VendorsContent";
 import prisma from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function VendorsPage() {
   const [categories, vendors] = await Promise.all([
     prisma.category.findMany({ orderBy: { order: "asc" } }),
