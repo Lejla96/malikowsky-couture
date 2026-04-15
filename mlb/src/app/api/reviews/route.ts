@@ -1,47 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { reviewsStore, vendors } from "@/lib/data";
 
-export async function GET(req: NextRequest) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const vendorId = searchParams.get("vendorId");
-    const approved = searchParams.get("approved");
-
-    const where: Record<string, unknown> = {};
-    if (vendorId) where.vendorId = vendorId;
-    if (approved !== "all") where.approved = approved === "true";
-
-    const reviews = await prisma.review.findMany({
-      where,
-      include: { vendor: { select: { businessName: true, slug: true } } },
-      orderBy: { createdAt: "desc" },
-    });
-
-    return NextResponse.json(reviews);
-  } catch (error) {
-    console.error("Reviews fetch error:", error);
-    return NextResponse.json([], { status: 500 });
-  }
+export async function GET() {
+  return NextResponse.json(reviewsStore);
 }
 
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
+    const vendor = vendors.find(v => v.id === data.vendorId);
 
-    const review = await prisma.review.create({
-      data: {
-        vendorId: data.vendorId,
-        name: data.name,
-        email: data.email,
-        rating: data.rating,
-        comment: data.comment,
-        approved: false,
+    const review = {
+      id: `r-${Date.now()}`,
+      vendorId: data.vendorId,
+      name: data.name,
+      email: data.email,
+      rating: data.rating,
+      comment: data.comment,
+      approved: false,
+      createdAt: new Date().toISOString(),
+      vendor: {
+        businessName: vendor?.businessName || "Unknown",
+        slug: vendor?.slug || "",
       },
-    });
+    };
 
+    reviewsStore.push(review);
     return NextResponse.json(review, { status: 201 });
-  } catch (error) {
-    console.error("Review creation error:", error);
+  } catch {
     return NextResponse.json({ error: "Failed to create review" }, { status: 500 });
   }
 }
