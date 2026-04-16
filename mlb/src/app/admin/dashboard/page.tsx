@@ -545,41 +545,56 @@ export default function AdminDashboard() {
                       </div>
 
                       <div className="space-y-4">
-                        {/* Upload from laptop */}
-                        <div className="p-4 bg-white rounded-xl border-2 border-dashed border-rose-300">
-                          <label className={labelClass}>Upload video from your computer</label>
-                          <div className="flex items-center gap-3 mt-2">
-                            <label className={`inline-flex items-center gap-2 px-5 py-3 bg-charcoal-900 text-white text-sm font-semibold rounded-full hover:bg-charcoal-800 transition-all cursor-pointer ${uploadingVideo ? "opacity-50 pointer-events-none" : ""}`}>
-                              {uploadingVideo ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>📁</span>}
-                              {uploadingVideo ? "Uploading..." : "Choose Video File"}
-                              <input type="file" accept="video/mp4,video/webm,video/quicktime" onChange={handleVideoUpload} className="hidden" disabled={uploadingVideo} />
-                            </label>
-                            {uploadProgress && (
-                              <p className={`text-sm font-medium ${uploadProgress.includes("failed") || uploadProgress.includes("too large") ? "text-red-500" : "text-green-600"}`}>
-                                {uploadProgress}
-                              </p>
-                            )}
+                        {/* Quick pick from pre-tested videos */}
+                        <div>
+                          <label className={labelClass}>Choose a video (click to select)</label>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
+                            {[
+                              { url: "https://assets.mixkit.co/videos/40596/40596-720.mp4", label: "Happy couple walking" },
+                              { url: "https://assets.mixkit.co/videos/40601/40601-720.mp4", label: "Newlyweds posing" },
+                              { url: "https://assets.mixkit.co/videos/40599/40599-720.mp4", label: "Just married" },
+                              { url: "https://assets.mixkit.co/videos/40627/40627-720.mp4", label: "Couple in garden" },
+                              { url: "https://assets.mixkit.co/videos/5224/5224-720.mp4", label: "Decorated table" },
+                              { url: "https://assets.mixkit.co/videos/5213/5213-720.mp4", label: "Party decorations" },
+                              { url: "https://assets.mixkit.co/videos/40584/40584-720.mp4", label: "Walking in garden" },
+                              { url: "https://assets.mixkit.co/videos/5227/5227-720.mp4", label: "Gala party" },
+                              { url: "https://assets.mixkit.co/videos/40590/40590-720.mp4", label: "Lovely spouses" },
+                            ].map((v) => (
+                              <button key={v.url} onClick={() => updateContentField("hero", "videoUrl", v.url)}
+                                className={`relative rounded-lg overflow-hidden border-2 transition-all ${content?.hero?.videoUrl === v.url ? "border-rose-500 shadow-lg" : "border-transparent hover:border-rose-300"}`}>
+                                <video src={v.url} className="w-full h-20 object-cover bg-charcoal-100" muted playsInline
+                                  onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                                  onMouseLeave={(e) => { const el = e.target as HTMLVideoElement; el.pause(); el.currentTime = 0; }} />
+                                <div className="absolute bottom-0 left-0 right-0 bg-black/60 px-2 py-1">
+                                  <p className="text-[10px] text-white font-medium truncate">{v.label}</p>
+                                </div>
+                                {content?.hero?.videoUrl === v.url && (
+                                  <div className="absolute top-1 right-1 w-5 h-5 bg-rose-500 rounded-full flex items-center justify-center">
+                                    <span className="text-white text-xs">✓</span>
+                                  </div>
+                                )}
+                              </button>
+                            ))}
                           </div>
-                          <p className="text-xs text-charcoal-400 mt-2">MP4, WebM, or MOV — max 100MB. After uploading, click &quot;Save Video&quot; to apply.</p>
                         </div>
 
                         {/* Or paste URL */}
                         <div className="flex items-center gap-3">
                           <div className="h-px flex-1 bg-rose-200" />
-                          <span className="text-xs text-charcoal-400 font-medium">OR paste a URL</span>
+                          <span className="text-xs text-charcoal-400 font-medium">OR paste your own URL</span>
                           <div className="h-px flex-1 bg-rose-200" />
                         </div>
 
                         <div>
-                          <label className={labelClass}>Video URL (MP4)</label>
+                          <label className={labelClass}>Custom Video URL (MP4)</label>
                           <input type="url" value={content?.hero?.videoUrl || ""} onChange={(e) => updateContentField("hero", "videoUrl", e.target.value)} className={inputClass} placeholder="https://example.com/video.mp4" />
                         </div>
 
-                        {/* Preview */}
+                        {/* Current preview */}
                         {content?.hero?.videoUrl && (
                           <div>
-                            <label className={labelClass}>Preview</label>
-                            <video src={content.hero.videoUrl} className="w-full max-w-md h-40 object-cover rounded-lg bg-charcoal-100" muted autoPlay loop playsInline />
+                            <label className={labelClass}>Current Video Preview</label>
+                            <video src={content.hero.videoUrl} className="w-full max-w-md h-44 object-cover rounded-lg bg-charcoal-100" muted autoPlay loop playsInline />
                           </div>
                         )}
 
@@ -591,7 +606,7 @@ export default function AdminDashboard() {
 
                         {/* Remove video */}
                         {content?.hero?.videoUrl && (
-                          <button onClick={() => { updateContentField("hero", "videoUrl", ""); setUploadProgress(""); }}
+                          <button onClick={() => updateContentField("hero", "videoUrl", "")}
                             className="text-sm text-red-500 hover:text-red-700 font-medium">
                             ✕ Remove video (use gradient background instead)
                           </button>
