@@ -16,7 +16,7 @@ export default function AboutPage() {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-charcoal-900 mb-6">
               {locale === "mk" ? "За MLB" : "About MLB"}
             </h1>
-            <p className="text-lg text-charcoal-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-charcoal-600 max-w-2xl mx-auto leading-relaxed text-center">
               {locale === "mk"
                 ? "MLB е премиерната дигитална платформа за планирање настани во Македонија, посветена на промовирање и поддршка на ромските бизниси и професионалци за настани."
                 : "MLB is Macedonia's premier digital event planning platform, dedicated to promoting and supporting Roma-owned businesses and event professionals across the country."}

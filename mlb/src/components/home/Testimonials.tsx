@@ -18,7 +18,7 @@ export default function Testimonials({ content }: { content: SiteContent["testim
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold mb-4">
             {locale === "mk" ? content.titleMk : content.titleEn}
           </h2>
-          <p className="text-base text-ivory-400 max-w-lg mx-auto font-light">
+          <p className="text-base text-ivory-400 max-w-lg mx-auto font-light text-center">
             {locale === "mk" ? content.subtitleMk : content.subtitleEn}
           </p>
         </motion.div>

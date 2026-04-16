@@ -25,7 +25,7 @@ export default function CTASection({ content }: { content: SiteContent["cta"] })
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold text-charcoal-900 mb-5 leading-tight">
             {locale === "mk" ? content.titleMk : content.titleEn}
           </h2>
-          <p className="text-base text-charcoal-500 max-w-lg mx-auto mb-10 font-light">
+          <p className="text-base text-charcoal-500 max-w-lg mx-auto mb-10 font-light text-center">
             {locale === "mk" ? content.subtitleMk : content.subtitleEn}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">

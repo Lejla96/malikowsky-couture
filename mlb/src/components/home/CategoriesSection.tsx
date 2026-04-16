@@ -23,7 +23,7 @@ export default function CategoriesSection({ categories, content }: { categories:
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold text-charcoal-900 mb-4">
             {locale === "mk" ? content.titleMk : content.titleEn}
           </h2>
-          <p className="text-base text-charcoal-500 max-w-lg mx-auto font-light">
+          <p className="text-base text-charcoal-500 max-w-lg mx-auto font-light text-center">
             {locale === "mk" ? content.subtitleMk : content.subtitleEn}
           </p>
         </motion.div>

@@ -125,7 +125,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-charcoal-900 mb-3">
               {t.vendors.title}
             </h1>
-            <p className="text-lg text-charcoal-500 max-w-2xl mx-auto">
+            <p className="text-lg text-charcoal-500 max-w-2xl mx-auto text-center">
               {t.vendors.subtitle}
             </p>
           </div>

@@ -81,7 +81,7 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
 
           {/* Subtitle */}
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed font-light"
+            className="text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed font-light text-center"
             style={{ color: "rgba(255,255,255,0.85)", textShadow: "0 1px 8px rgba(0,0,0,0.3)" }}>
             {subtitle}
           </motion.p>

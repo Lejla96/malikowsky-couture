@@ -98,7 +98,7 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-charcoal-900 mb-4">
             {t.join.title}
           </h1>
-          <p className="text-lg text-charcoal-500 max-w-2xl mx-auto">
+          <p className="text-lg text-charcoal-500 max-w-2xl mx-auto text-center">
             {t.join.subtitle}
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-rose-300 to-rose-500 mx-auto mt-6 rounded-full" />

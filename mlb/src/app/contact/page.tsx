@@ -29,7 +29,7 @@ export default function ContactPage() {
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-charcoal-900 mb-4">
             {locale === "mk" ? "Контактирајте нè" : "Contact Us"}
           </h1>
-          <p className="text-lg text-charcoal-500 max-w-2xl mx-auto">
+          <p className="text-lg text-charcoal-500 max-w-2xl mx-auto text-center">
             {locale === "mk"
               ? "Имате прашања? Ние сме тука да помогнеме."
               : "Have questions? We're here to help. Reach out to our team."}
