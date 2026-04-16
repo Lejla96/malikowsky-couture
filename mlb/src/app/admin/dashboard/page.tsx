@@ -492,6 +492,20 @@ export default function AdminDashboard() {
                       <ContentField section="hero" field="stat3Number" label="Stat 3 Number" />
                       <ContentField section="hero" field="stat3Label" label="Stat 3 Label" />
                     </div>
+                    <div className="pt-4 border-t border-champagne-100">
+                      <p className="text-sm font-semibold text-charcoal-700 mb-3">Video Background</p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="md:col-span-2">
+                          <label className={labelClass}>Video URL (MP4)</label>
+                          <input type="url" value={content?.hero?.videoUrl || ""} onChange={(e) => updateContentField("hero", "videoUrl", e.target.value)} className={inputClass} placeholder="https://example.com/video.mp4" />
+                          <p className="text-xs text-charcoal-400 mt-1">Enter a direct link to an MP4 video. Leave empty to use the gradient background instead. Free videos: pexels.com/videos</p>
+                        </div>
+                        <div>
+                          <label className={labelClass}>Overlay Darkness (0 = transparent, 1 = fully dark)</label>
+                          <input type="text" value={content?.hero?.videoOverlayOpacity || "0.55"} onChange={(e) => updateContentField("hero", "videoOverlayOpacity", e.target.value)} className={inputClass} placeholder="0.55" />
+                        </div>
+                      </div>
+                    </div>
                   </SectionCard>
 
                   {/* Categories */}

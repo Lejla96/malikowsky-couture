@@ -17,6 +17,8 @@ export interface SiteContent {
     stat2Label: string;
     stat3Number: string;
     stat3Label: string;
+    videoUrl: string;
+    videoOverlayOpacity: string;
   };
   categories: {
     titleEn: string;
@@ -113,6 +115,8 @@ export const siteContent: SiteContent = {
     stat2Label: "Events",
     stat3Number: "98%",
     stat3Label: "Satisfaction",
+    videoUrl: "https://videos.pexels.com/video-files/3337232/3337232-uhd_2560_1440_30fps.mp4",
+    videoOverlayOpacity: "0.55",
   },
   categories: {
     titleEn: "Browse by Category",
