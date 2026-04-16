@@ -18,6 +18,7 @@ interface Vendor {
   reviewCount: number;
   priceRange?: string | null;
   coverPhoto?: string | null;
+  photos: string;
   featured: boolean;
   eventTypes: string;
   category: { name: string; nameMk: string; slug: string };
@@ -314,6 +315,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                     <div className="absolute bottom-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-rose-600">
                       {locale === "mk" ? vendor.category.nameMk : vendor.category.name}
                     </div>
+                    {(() => { try { const p = JSON.parse(vendor.photos || "[]"); const count = p.length + (vendor.coverPhoto ? 1 : 0); if (count > 0) return (<div className="absolute bottom-4 right-4 px-2 py-1 bg-black/50 backdrop-blur-sm rounded-full text-[10px] font-medium text-white">📷 {count} photos</div>); return null; } catch { return null; } })()}
                   </div>
 
                   {/* Content */}

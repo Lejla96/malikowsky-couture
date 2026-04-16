@@ -40,6 +40,8 @@ interface Vendor {
   tiktok?: string | null;
   priceRange?: string | null;
   availability?: string | null;
+  photos: string;
+  coverPhoto?: string | null;
   approved: boolean;
   featured: boolean;
   rating: number;
@@ -393,9 +395,67 @@ export default function AdminDashboard() {
                           </div>
                           <div><label className={labelClass}>Description (English)</label><textarea rows={4} value={editingVendor.description} onChange={(e) => setEditingVendor({ ...editingVendor, description: e.target.value })} className={inputClass} /></div>
                           <div><label className={labelClass}>Description (Macedonian)</label><textarea rows={4} value={editingVendor.descriptionMk || ""} onChange={(e) => setEditingVendor({ ...editingVendor, descriptionMk: e.target.value })} className={inputClass} /></div>
+
+                          {/* Photos Management */}
+                          <div className="pt-4 border-t border-rose-100">
+                            <h3 className="text-sm font-semibold text-charcoal-800 mb-3 flex items-center gap-2">📸 Photos</h3>
+
+                            {/* Cover Photo */}
+                            <div className="mb-4">
+                              <label className={labelClass}>Cover Photo URL (main image shown on cards)</label>
+                              <input type="url" value={editingVendor.coverPhoto || ""} onChange={(e) => setEditingVendor({ ...editingVendor, coverPhoto: e.target.value })} className={inputClass} placeholder="https://example.com/cover-photo.jpg" />
+                              {editingVendor.coverPhoto && (
+                                <img src={editingVendor.coverPhoto} alt="Cover" className="mt-2 h-32 w-full object-cover rounded-lg" />
+                              )}
+                            </div>
+
+                            {/* Gallery Photos */}
+                            <div>
+                              <label className={labelClass}>Gallery Photos (one URL per line)</label>
+                              <textarea
+                                rows={5}
+                                value={(() => { try { return JSON.parse(editingVendor.photos || "[]").join("\n"); } catch { return ""; } })()}
+                                onChange={(e) => {
+                                  const urls = e.target.value.split("\n").filter((u: string) => u.trim());
+                                  setEditingVendor({ ...editingVendor, photos: JSON.stringify(urls) });
+                                }}
+                                className={inputClass}
+                                placeholder={"https://example.com/photo1.jpg\nhttps://example.com/photo2.jpg\nhttps://example.com/photo3.jpg"}
+                              />
+                              <p className="text-xs text-charcoal-400 mt-1">Paste image URLs, one per line. Use free hosting like imgur.com, postimages.org, or imgbb.com to upload photos and get URLs.</p>
+                            </div>
+
+                            {/* Photo preview grid */}
+                            {(() => {
+                              try {
+                                const photos = JSON.parse(editingVendor.photos || "[]");
+                                if (photos.length > 0) {
+                                  return (
+                                    <div className="grid grid-cols-4 gap-2 mt-3">
+                                      {photos.map((url: string, i: number) => (
+                                        <div key={i} className="relative group">
+                                          <img src={url} alt={`Photo ${i + 1}`} className="h-20 w-full object-cover rounded-lg" />
+                                          <button
+                                            onClick={() => {
+                                              const updated = photos.filter((_: string, idx: number) => idx !== i);
+                                              setEditingVendor({ ...editingVendor, photos: JSON.stringify(updated) });
+                                            }}
+                                            className="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            ×
+                                          </button>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  );
+                                }
+                                return null;
+                              } catch { return null; }
+                            })()}
+                          </div>
+
                           <div className="flex justify-end gap-3 pt-4">
-                            <button onClick={() => setEditingVendor(null)} className="px-6 py-2.5 border border-champagne-200 rounded-lg text-sm font-medium text-charcoal-700 hover:bg-champagne-50">Cancel</button>
-                            <button onClick={saveVendorEdit} className="px-6 py-2.5 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-lg hover:from-champagne-700 hover:to-champagne-800 flex items-center gap-2"><Save className="w-4 h-4" />Save Changes</button>
+                            <button onClick={() => setEditingVendor(null)} className="px-6 py-2.5 border border-rose-200 rounded-full text-sm font-medium text-charcoal-700 hover:bg-rose-50">Cancel</button>
+                            <button onClick={saveVendorEdit} className="px-6 py-2.5 bg-rose-500 text-white font-semibold rounded-full hover:bg-rose-600 flex items-center gap-2"><Save className="w-4 h-4" />Save Changes</button>
                           </div>
                         </div>
                       </div>

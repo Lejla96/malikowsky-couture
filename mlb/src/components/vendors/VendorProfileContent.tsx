@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTranslation } from "@/i18n";
 import {
   Star, MapPin, Phone, Mail, Globe, ArrowLeft,
-  Heart, Share2, Calendar,
+  Heart, Share2, Calendar, Eye,
   ExternalLink, CheckCircle, Clock
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -173,6 +173,45 @@ export default function VendorProfileContent({ vendor }: { vendor: Vendor }) {
                 <p className="text-charcoal-600 leading-relaxed whitespace-pre-wrap">{description}</p>
               </div>
             </motion.div>
+
+            {/* Photo Gallery */}
+            {(() => {
+              let photos: string[] = [];
+              try { photos = JSON.parse(vendor.photos || "[]"); } catch { /* ignore */ }
+              if (vendor.coverPhoto) photos = [vendor.coverPhoto, ...photos];
+              if (photos.length === 0) return null;
+
+              return (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white rounded-2xl shadow-lg border border-rose-100 p-8 mb-6"
+                >
+                  <h3 className="text-xl font-serif font-semibold text-charcoal-900 mb-5">
+                    {locale === "mk" ? "Галерија" : "Our Work"}
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {photos.map((url, i) => (
+                      <button
+                        key={i}
+                        onClick={() => window.open(url, "_blank")}
+                        className="relative group overflow-hidden rounded-xl aspect-square cursor-pointer"
+                      >
+                        <img
+                          src={url}
+                          alt={`${vendor.businessName} work ${i + 1}`}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                          <Eye className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })()}
 
             {/* Reviews */}
             <motion.div
