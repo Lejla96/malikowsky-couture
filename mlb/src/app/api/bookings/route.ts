@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { bookingsStore, getVendorBySlug, vendors } from "@/lib/data";
+import { vendors } from "@/lib/data";
+import { getStoredBookings, addStoredBooking } from "@/lib/store";
 
 export async function GET() {
-  return NextResponse.json(bookingsStore);
+  return NextResponse.json(getStoredBookings());
 }
 
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-
     const vendor = vendors.find(v => v.id === data.vendorId);
 
     const booking = {
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    bookingsStore.push(booking);
+    addStoredBooking(booking);
     return NextResponse.json(booking, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Failed to create booking" }, { status: 500 });

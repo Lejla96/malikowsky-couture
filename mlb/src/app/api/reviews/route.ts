@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { reviewsStore, vendors } from "@/lib/data";
+import { vendors } from "@/lib/data";
+import { getStoredReviews, addStoredReview } from "@/lib/store";
 
 export async function GET() {
-  return NextResponse.json(reviewsStore);
+  return NextResponse.json(getStoredReviews());
 }
 
 export async function POST(req: NextRequest) {
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    reviewsStore.push(review);
+    addStoredReview(review);
     return NextResponse.json(review, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Failed to create review" }, { status: 500 });

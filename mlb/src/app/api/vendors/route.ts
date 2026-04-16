@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getVendors, vendorRegistrations, categories } from "@/lib/data";
+import { getVendors, vendors, categories } from "@/lib/data";
+import { getStoredVendors, addStoredVendor } from "@/lib/store";
 import type { Vendor } from "@/lib/data";
 
 export async function GET(req: NextRequest) {
@@ -8,8 +9,28 @@ export async function GET(req: NextRequest) {
   const city = searchParams.get("location") || undefined;
   const search = searchParams.get("search") || undefined;
   const featured = searchParams.get("featured") === "true" ? true : undefined;
+  const showAll = searchParams.get("approved") === "all";
 
-  const allVendors = getVendors({ approved: true, featured, category, city, search });
+  let allVendors: Vendor[];
+
+  if (showAll) {
+    allVendors = [...vendors, ...getStoredVendors()];
+  } else {
+    allVendors = getVendors({ approved: true, featured, category, city, search });
+    const storedApproved = getStoredVendors().filter(v => v.approved);
+    allVendors = [...allVendors, ...storedApproved];
+  }
+
+  if (category) allVendors = allVendors.filter(v => v.category.slug === category);
+  if (city) allVendors = allVendors.filter(v => v.city === city);
+  if (search) {
+    const q = search.toLowerCase();
+    allVendors = allVendors.filter(v =>
+      v.businessName.toLowerCase().includes(q) ||
+      v.description.toLowerCase().includes(q) ||
+      v.city.toLowerCase().includes(q)
+    );
+  }
 
   return NextResponse.json({ vendors: allVendors, total: allVendors.length });
 }
@@ -58,7 +79,7 @@ export async function POST(req: NextRequest) {
       reviews: [],
     };
 
-    vendorRegistrations.push(vendor);
+    addStoredVendor(vendor);
     return NextResponse.json(vendor, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Failed to create vendor" }, { status: 500 });
