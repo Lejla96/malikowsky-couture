@@ -6,7 +6,8 @@ import { useTranslation } from "@/i18n";
 import {
   LayoutDashboard, Store, Calendar, MessageSquare, LogOut,
   Clock, CheckCircle, XCircle, Trash2, Eye, Edit2,
-  ChevronRight, Star, MapPin, Loader2, FileText, Save, X
+  ChevronRight, Star, MapPin, Loader2, FileText, Save, X,
+  Menu, PanelLeftClose
 } from "lucide-react";
 
 type Tab = "overview" | "vendors" | "bookings" | "reviews" | "content";
@@ -88,6 +89,7 @@ export default function AdminDashboard() {
   const [editingVendor, setEditingVendor] = useState<Vendor | null>(null);
   const [savingContent, setSavingContent] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const checkAuth = useCallback(async () => {
     try {
@@ -247,16 +249,26 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-ivory-50">
       <div className="flex">
+        {/* Sidebar Overlay (mobile) */}
+        {sidebarOpen && (
+          <div className="fixed inset-0 bg-black/30 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
+        )}
+
         {/* Sidebar */}
-        <aside className="w-64 bg-charcoal-900 min-h-screen p-6 hidden lg:block fixed left-0 top-20">
-          <div className="mb-8">
-            <h2 className="text-xl font-serif font-bold text-white">MLB Admin</h2>
-            <p className="text-sm text-ivory-400">{t.admin.dashboard}</p>
+        <aside className={`fixed left-0 top-20 bottom-0 z-50 w-64 bg-charcoal-900 p-6 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-xl font-serif font-bold text-white">MLB Admin</h2>
+              <p className="text-sm text-ivory-400">{t.admin.dashboard}</p>
+            </div>
+            <button onClick={() => setSidebarOpen(false)} className="text-ivory-400 hover:text-white p-1">
+              <PanelLeftClose className="w-5 h-5" />
+            </button>
           </div>
           <nav className="space-y-1">
             {tabs.map((item) => (
-              <button key={item.id} onClick={() => setTab(item.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${tab === item.id ? "bg-champagne-600 text-white" : "text-ivory-300 hover:text-white hover:bg-charcoal-800"}`}>
+              <button key={item.id} onClick={() => { setTab(item.id); if (window.innerWidth < 1024) setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${tab === item.id ? "bg-rose-500 text-white" : "text-ivory-300 hover:text-white hover:bg-charcoal-800"}`}>
                 <item.icon className="w-5 h-5" />{item.label}
               </button>
             ))}
@@ -266,18 +278,24 @@ export default function AdminDashboard() {
           </button>
         </aside>
 
-        {/* Mobile tabs */}
-        <div className="lg:hidden fixed top-20 left-0 right-0 bg-white border-b border-champagne-100 z-40 px-4 py-2 flex gap-2 overflow-x-auto">
-          {tabs.map((item) => (
-            <button key={item.id} onClick={() => setTab(item.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap ${tab === item.id ? "bg-champagne-600 text-white" : "text-charcoal-600 bg-champagne-50"}`}>
-              <item.icon className="w-4 h-4" />{item.label}
-            </button>
-          ))}
-        </div>
-
         {/* Main Content */}
-        <main className="flex-1 lg:ml-64 p-6 lg:p-8 mt-14 lg:mt-0">
+        <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? "lg:ml-64" : "lg:ml-0"}`}>
+          {/* Top bar with menu toggle */}
+          <div className="sticky top-20 z-30 bg-ivory-50 border-b border-rose-100/40 px-4 py-3 flex items-center gap-4">
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-rose-50 rounded-lg transition-colors text-charcoal-600">
+              <Menu className="w-5 h-5" />
+            </button>
+            <div className="flex gap-2 overflow-x-auto">
+              {tabs.map((item) => (
+                <button key={item.id} onClick={() => setTab(item.id)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${tab === item.id ? "bg-rose-500 text-white" : "text-charcoal-500 hover:bg-rose-50"}`}>
+                  <item.icon className="w-3.5 h-3.5" />{item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-6 lg:p-8">
           {loading ? (
             <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-champagne-600" /></div>
           ) : (
@@ -479,6 +497,22 @@ export default function AdminDashboard() {
 
                   {/* Hero Section */}
                   <SectionCard title="Hero Section (Homepage Banner)" section="hero">
+                    {/* Video Background - at the top for easy access */}
+                    <div className="p-4 bg-rose-50 rounded-xl border border-rose-200 mb-4">
+                      <p className="text-sm font-semibold text-charcoal-800 mb-3 flex items-center gap-2">🎬 Video Background</p>
+                      <div className="space-y-3">
+                        <div>
+                          <label className={labelClass}>Video URL (MP4) — paste a direct link to your video</label>
+                          <input type="url" value={content?.hero?.videoUrl || ""} onChange={(e) => updateContentField("hero", "videoUrl", e.target.value)} className={inputClass} placeholder="https://example.com/video.mp4" />
+                          <p className="text-xs text-charcoal-400 mt-1">Find free videos at <a href="https://www.pexels.com/search/videos/wedding/" target="_blank" className="text-rose-500 underline">pexels.com/videos</a> — leave empty for gradient background</p>
+                        </div>
+                        <div className="max-w-xs">
+                          <label className={labelClass}>Overlay Darkness (0 = light, 1 = very dark)</label>
+                          <input type="text" value={content?.hero?.videoOverlayOpacity || "0.55"} onChange={(e) => updateContentField("hero", "videoOverlayOpacity", e.target.value)} className={inputClass} placeholder="0.55" />
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <ContentField section="hero" field="titleEn" label="Title (English)" />
                       <ContentField section="hero" field="titleMk" label="Title (Macedonian)" />
@@ -499,20 +533,6 @@ export default function AdminDashboard() {
                       <ContentField section="hero" field="stat2Label" label="Stat 2 Label" />
                       <ContentField section="hero" field="stat3Number" label="Stat 3 Number" />
                       <ContentField section="hero" field="stat3Label" label="Stat 3 Label" />
-                    </div>
-                    <div className="pt-4 border-t border-champagne-100">
-                      <p className="text-sm font-semibold text-charcoal-700 mb-3">Video Background</p>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="md:col-span-2">
-                          <label className={labelClass}>Video URL (MP4)</label>
-                          <input type="url" value={content?.hero?.videoUrl || ""} onChange={(e) => updateContentField("hero", "videoUrl", e.target.value)} className={inputClass} placeholder="https://example.com/video.mp4" />
-                          <p className="text-xs text-charcoal-400 mt-1">Enter a direct link to an MP4 video. Leave empty to use the gradient background instead. Free videos: pexels.com/videos</p>
-                        </div>
-                        <div>
-                          <label className={labelClass}>Overlay Darkness (0 = transparent, 1 = fully dark)</label>
-                          <input type="text" value={content?.hero?.videoOverlayOpacity || "0.55"} onChange={(e) => updateContentField("hero", "videoOverlayOpacity", e.target.value)} className={inputClass} placeholder="0.55" />
-                        </div>
-                      </div>
                     </div>
                   </SectionCard>
 
@@ -643,6 +663,7 @@ export default function AdminDashboard() {
               )}
             </>
           )}
+          </div>
         </main>
       </div>
     </div>
