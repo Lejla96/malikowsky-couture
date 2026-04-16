@@ -2,6 +2,8 @@ import HomeContent from "@/components/home/HomeContent";
 import { getCategories, getVendors } from "@/lib/data";
 import { getContent } from "@/lib/content";
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   const categories = getCategories();
   const featuredVendors = getVendors({ approved: true, featured: true })

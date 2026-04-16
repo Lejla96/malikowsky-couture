@@ -55,8 +55,8 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
         <div className="absolute inset-0 luxury-gradient" />
       )}
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="max-w-3xl mx-auto text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="w-full max-w-3xl mx-auto text-center flex flex-col items-center">
           {/* Badge */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 backdrop-blur-md rounded-full mb-8 border border-white/20 shadow-lg">
