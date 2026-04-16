@@ -1,36 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { bookingsStore } from "@/lib/data";
 
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const { id } = await params;
-    const data = await req.json();
-
-    const booking = await prisma.booking.update({
-      where: { id },
-      data: { status: data.status },
-    });
-
-    return NextResponse.json(booking);
-  } catch (error) {
-    console.error("Booking update error:", error);
-    return NextResponse.json({ error: "Failed to update booking" }, { status: 500 });
+  const { id } = await params;
+  const data = await req.json();
+  const booking = bookingsStore.find(b => b.id === id);
+  if (!booking) {
+    return NextResponse.json({ error: "Booking not found" }, { status: 404 });
   }
+  booking.status = data.status;
+  return NextResponse.json(booking);
 }
 
 export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
-    const { id } = await params;
-    await prisma.booking.delete({ where: { id } });
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Booking deletion error:", error);
-    return NextResponse.json({ error: "Failed to delete booking" }, { status: 500 });
-  }
+  const { id } = await params;
+  const idx = bookingsStore.findIndex(b => b.id === id);
+  if (idx !== -1) bookingsStore.splice(idx, 1);
+  return NextResponse.json({ success: true });
 }
