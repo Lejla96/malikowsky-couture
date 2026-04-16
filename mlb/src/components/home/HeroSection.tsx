@@ -22,43 +22,56 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
   const cta = locale === "mk" ? content.ctaMk : content.ctaEn;
   const ctaSecondary = locale === "mk" ? content.ctaSecondaryMk : content.ctaSecondaryEn;
   const placeholder = locale === "mk" ? content.searchPlaceholderMk : content.searchPlaceholderEn;
-  const overlayOpacity = parseFloat(content.videoOverlayOpacity) || 0.55;
+  const overlayOpacity = parseFloat(content.videoOverlayOpacity) || 0.45;
 
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-      {/* Video */}
-      {content.videoUrl && (
+      {/* Video Background */}
+      {content.videoUrl ? (
         <div className="absolute inset-0 z-0">
-          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover"
+            key={content.videoUrl}
+          >
             <source src={content.videoUrl} type="video/mp4" />
           </video>
-          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, rgba(44,44,42,${overlayOpacity + 0.1}) 0%, rgba(44,44,42,${overlayOpacity - 0.05}) 50%, rgba(44,44,42,${overlayOpacity + 0.15}) 100%)` }} />
+          {/* Gradient overlay for text readability */}
+          <div className="absolute inset-0" style={{
+            background: `linear-gradient(
+              to bottom,
+              rgba(0,0,0,${overlayOpacity * 0.8}) 0%,
+              rgba(0,0,0,${overlayOpacity * 0.4}) 40%,
+              rgba(0,0,0,${overlayOpacity * 0.3}) 60%,
+              rgba(0,0,0,${overlayOpacity * 0.9}) 100%
+            )`
+          }} />
         </div>
+      ) : (
+        <div className="absolute inset-0 luxury-gradient" />
       )}
 
-      {/* Fallback */}
-      {!content.videoUrl && <div className="absolute inset-0 luxury-gradient" />}
-
-      {/* Soft decorative shapes */}
-      <div className="absolute top-32 right-16 w-64 h-64 bg-rose-300/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-24 left-16 w-80 h-80 bg-champagne-300/10 rounded-full blur-3xl" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/12 backdrop-blur-md rounded-full mb-8 border border-white/15">
-            <Sparkles className="w-3.5 h-3.5 text-rose-300" />
-            <span className="text-xs font-medium text-white/85 tracking-wider uppercase">{content.badge}</span>
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 backdrop-blur-md rounded-full mb-8 border border-white/20 shadow-lg">
+            <Sparkles className="w-3.5 h-3.5 text-champagne-300" />
+            <span className="text-xs font-semibold text-white tracking-wider uppercase">{content.badge}</span>
           </motion.div>
 
           {/* Title */}
-          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1.05] mb-7 tracking-tight">
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1.05] mb-7 tracking-tight"
+            style={{ textShadow: "0 2px 20px rgba(0,0,0,0.3), 0 4px 40px rgba(0,0,0,0.2)" }}>
             {title.split(" ").map((word, i) => (
               <span key={i}>
                 {i >= title.split(" ").length - 2 ? (
-                  <span className="text-rose-300 italic">{word} </span>
+                  <span className="italic" style={{ color: "#f9c4c4" }}>{word} </span>
                 ) : (
                   <span>{word} </span>
                 )}
@@ -68,14 +81,15 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
 
           {/* Subtitle */}
           <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-10 leading-relaxed font-light">
+            className="text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed font-light"
+            style={{ color: "rgba(255,255,255,0.85)", textShadow: "0 1px 8px rgba(0,0,0,0.3)" }}>
             {subtitle}
           </motion.p>
 
           {/* Search */}
           <motion.form initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             onSubmit={handleSearch} className="max-w-lg mx-auto mb-10">
-            <div className="relative flex items-center bg-white rounded-full shadow-2xl shadow-black/10 overflow-hidden">
+            <div className="relative flex items-center bg-white/95 backdrop-blur-sm rounded-full shadow-2xl overflow-hidden">
               <Search className="absolute left-5 w-4 h-4 text-charcoal-400" />
               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={placeholder}
@@ -91,12 +105,13 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a href="/vendors"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-rose-400 text-white text-sm font-semibold rounded-full hover:bg-rose-500 transition-all shadow-lg shadow-rose-400/25 group">
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold rounded-full shadow-lg group transition-all"
+              style={{ backgroundColor: "#e88b8b", color: "white" }}>
               {cta}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </a>
             <a href="/vendors"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/12 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/20 hover:bg-white/20 transition-all">
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/20 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/30 hover:bg-white/30 transition-all">
               {ctaSecondary}
             </a>
           </motion.div>
@@ -108,11 +123,10 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
               { number: content.stat1Number, label: content.stat1Label },
               { number: content.stat2Number, label: content.stat2Label },
               { number: content.stat3Number, label: content.stat3Label },
-            ].map((stat, i) => (
+            ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-2xl sm:text-3xl font-serif font-semibold text-white">{stat.number}</div>
-                <div className="text-[11px] text-white/50 mt-1 uppercase tracking-wider">{stat.label}</div>
-                {i < 2 && <div className="hidden" />}
+                <div className="text-2xl sm:text-3xl font-serif font-semibold text-white" style={{ textShadow: "0 1px 10px rgba(0,0,0,0.3)" }}>{stat.number}</div>
+                <div className="text-[11px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.6)" }}>{stat.label}</div>
               </div>
             ))}
           </motion.div>

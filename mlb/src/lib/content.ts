@@ -115,8 +115,8 @@ export const siteContent: SiteContent = {
     stat2Label: "Events",
     stat3Number: "98%",
     stat3Label: "Satisfaction",
-    videoUrl: "https://videos.pexels.com/video-files/3337232/3337232-uhd_2560_1440_30fps.mp4",
-    videoOverlayOpacity: "0.55",
+    videoUrl: "https://assets.mixkit.co/videos/4543/4543-720.mp4",
+    videoOverlayOpacity: "0.4",
   },
   categories: {
     titleEn: "Browse by Category",
