@@ -213,7 +213,7 @@ export default function AdminDashboard() {
     { id: "vendors" as Tab, label: t.admin.vendors, icon: Store },
     { id: "bookings" as Tab, label: t.admin.bookings, icon: Calendar },
     { id: "reviews" as Tab, label: t.admin.reviews, icon: MessageSquare },
-    { id: "content" as Tab, label: t.admin.content, icon: FileText },
+    { id: "content" as Tab, label: "Content", icon: FileText },
   ];
 
   const inputClass = "w-full px-3 py-2.5 bg-ivory-50 border border-champagne-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300";
@@ -464,9 +464,17 @@ export default function AdminDashboard() {
               )}
 
               {/* ===== CONTENT MANAGEMENT ===== */}
-              {tab === "content" && content && (
+              {tab === "content" && (
                 <div>
                   <h1 className="text-2xl font-serif font-bold text-charcoal-900 mb-2">Website Content</h1>
+                  {!content && (
+                    <div className="bg-white rounded-2xl shadow-sm border border-rose-100 p-12 text-center">
+                      <Loader2 className="w-8 h-8 animate-spin text-rose-400 mx-auto mb-4" />
+                      <p className="text-charcoal-500">Loading content...</p>
+                    </div>
+                  )}
+                  {content && (
+                  <>
                   <p className="text-charcoal-500 mb-6">Edit all text content on the website. Changes are saved per section.</p>
 
                   {/* Hero Section */}
@@ -629,6 +637,8 @@ export default function AdminDashboard() {
                       <ContentField section="footer" field="address" label="Address" />
                     </div>
                   </SectionCard>
+                  </>
+                  )}
                 </div>
               )}
             </>
