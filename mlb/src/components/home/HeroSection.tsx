@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "@/i18n";
-import { Search, ArrowRight, Star } from "lucide-react";
+import { Search, ArrowRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import type { SiteContent } from "@/lib/content";
 
@@ -14,9 +14,7 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/vendors?search=${encodeURIComponent(searchQuery)}`);
-    }
+    if (searchQuery.trim()) router.push(`/vendors?search=${encodeURIComponent(searchQuery)}`);
   };
 
   const title = locale === "mk" ? content.titleMk : content.titleEn;
@@ -27,62 +25,40 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
   const overlayOpacity = parseFloat(content.videoOverlayOpacity) || 0.55;
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Video Background */}
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      {/* Video */}
       {content.videoUrl && (
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          >
+          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
             <source src={content.videoUrl} type="video/mp4" />
           </video>
-          <div
-            className="absolute inset-0 bg-charcoal-900"
-            style={{ opacity: overlayOpacity }}
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, rgba(26,26,26,${overlayOpacity + 0.15}) 0%, rgba(26,26,26,${overlayOpacity - 0.1}) 40%, rgba(196,115,35,${overlayOpacity * 0.3}) 100%)`,
-            }}
-          />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(180deg, rgba(44,44,42,${overlayOpacity + 0.1}) 0%, rgba(44,44,42,${overlayOpacity - 0.05}) 50%, rgba(44,44,42,${overlayOpacity + 0.15}) 100%)` }} />
         </div>
       )}
 
-      {/* Fallback gradient if no video */}
-      {!content.videoUrl && (
-        <>
-          <div className="absolute inset-0 luxury-gradient" />
-          <div className="absolute inset-0 opacity-[0.03]"
-            style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c47323' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")" }}
-          />
-        </>
-      )}
+      {/* Fallback */}
+      {!content.videoUrl && <div className="absolute inset-0 luxury-gradient" />}
 
-      {/* Decorative blurs */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-champagne-200/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-champagne-100/10 rounded-full blur-3xl" />
+      {/* Soft decorative shapes */}
+      <div className="absolute top-32 right-16 w-64 h-64 bg-rose-300/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-24 left-16 w-80 h-80 bg-champagne-300/10 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/15 backdrop-blur-md rounded-full mb-8 border border-white/20">
-            <Star className="w-4 h-4 text-champagne-400 fill-champagne-400" />
-            <span className="text-sm font-medium text-white/90">{content.badge}</span>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-white/12 backdrop-blur-md rounded-full mb-8 border border-white/15">
+            <Sparkles className="w-3.5 h-3.5 text-rose-300" />
+            <span className="text-xs font-medium text-white/85 tracking-wider uppercase">{content.badge}</span>
           </motion.div>
 
           {/* Title */}
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-lg">
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1.05] mb-7 tracking-tight">
             {title.split(" ").map((word, i) => (
               <span key={i}>
                 {i >= title.split(" ").length - 2 ? (
-                  <span className="text-champagne-300">{word} </span>
+                  <span className="text-rose-300 italic">{word} </span>
                 ) : (
                   <span>{word} </span>
                 )}
@@ -91,51 +67,52 @@ export default function HeroSection({ content }: { content: SiteContent["hero"] 
           </motion.h1>
 
           {/* Subtitle */}
-          <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-10 leading-relaxed font-light">
             {subtitle}
           </motion.p>
 
-          {/* Search Bar */}
-          <motion.form initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-            onSubmit={handleSearch} className="max-w-2xl mx-auto mb-10">
-            <div className="relative flex items-center bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
-              <Search className="absolute left-5 w-5 h-5 text-charcoal-400" />
+          {/* Search */}
+          <motion.form initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
+            onSubmit={handleSearch} className="max-w-lg mx-auto mb-10">
+            <div className="relative flex items-center bg-white rounded-full shadow-2xl shadow-black/10 overflow-hidden">
+              <Search className="absolute left-5 w-4 h-4 text-charcoal-400" />
               <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={placeholder}
-                className="w-full pl-14 pr-4 py-5 text-charcoal-900 placeholder-charcoal-400 bg-transparent focus:outline-none text-lg" />
+                className="w-full pl-12 pr-4 py-4 text-charcoal-800 placeholder-charcoal-400 bg-transparent focus:outline-none text-sm" />
               <button type="submit"
-                className="flex-shrink-0 mr-2 px-6 py-3 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-xl hover:from-champagne-700 hover:to-champagne-800 transition-all">
+                className="flex-shrink-0 mr-1.5 px-5 py-2.5 bg-charcoal-900 text-white text-xs font-semibold rounded-full hover:bg-charcoal-800 transition-all">
                 {locale === "mk" ? "Пребарај" : "Search"}
               </button>
             </div>
           </motion.form>
 
-          {/* CTA Buttons */}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* CTAs */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a href="/vendors"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-xl hover:from-champagne-700 hover:to-champagne-800 transition-all shadow-lg hover:shadow-xl group">
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-rose-400 text-white text-sm font-semibold rounded-full hover:bg-rose-500 transition-all shadow-lg shadow-rose-400/25 group">
               {cta}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </a>
             <a href="/vendors"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/15 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/25 hover:border-white/50 transition-all">
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/12 backdrop-blur-sm text-white text-sm font-medium rounded-full border border-white/20 hover:bg-white/20 transition-all">
               {ctaSecondary}
             </a>
           </motion.div>
 
           {/* Stats */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+            className="mt-20 flex items-center justify-center gap-12 sm:gap-16">
             {[
               { number: content.stat1Number, label: content.stat1Label },
               { number: content.stat2Number, label: content.stat2Label },
               { number: content.stat3Number, label: content.stat3Label },
-            ].map((stat) => (
+            ].map((stat, i) => (
               <div key={stat.label} className="text-center">
-                <div className="text-2xl sm:text-3xl font-serif font-bold text-champagne-300">{stat.number}</div>
-                <div className="text-sm text-white/60 mt-1">{stat.label}</div>
+                <div className="text-2xl sm:text-3xl font-serif font-semibold text-white">{stat.number}</div>
+                <div className="text-[11px] text-white/50 mt-1 uppercase tracking-wider">{stat.label}</div>
+                {i < 2 && <div className="hidden" />}
               </div>
             ))}
           </motion.div>

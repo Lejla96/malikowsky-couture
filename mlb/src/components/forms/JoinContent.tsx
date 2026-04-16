@@ -59,7 +59,7 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
     }
   };
 
-  const inputClass = "w-full px-4 py-3 bg-ivory-50 border border-champagne-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300 focus:border-transparent transition-all";
+  const inputClass = "w-full px-4 py-3 bg-ivory-50 border border-rose-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all";
 
   const benefits = [
     { icon: Users, text: t.join.benefits.reach },
@@ -74,7 +74,7 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md mx-auto text-center bg-white rounded-2xl shadow-xl p-12 border border-champagne-100"
+          className="max-w-md mx-auto text-center bg-white rounded-2xl shadow-xl p-12 border border-rose-100"
         >
           <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
           <h2 className="text-2xl font-serif font-bold text-charcoal-900 mb-3">
@@ -101,7 +101,7 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
           <p className="text-lg text-charcoal-500 max-w-2xl mx-auto">
             {t.join.subtitle}
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-champagne-400 to-champagne-600 mx-auto mt-6 rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-rose-300 to-rose-500 mx-auto mt-6 rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -117,8 +117,8 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-champagne-600/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-5 h-5 text-champagne-400" />
+                    <div className="w-10 h-10 bg-rose-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <benefit.icon className="w-5 h-5 text-rose-300" />
                     </div>
                     <p className="text-ivory-200 text-sm leading-relaxed">{benefit.text}</p>
                   </div>
@@ -134,7 +134,7 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
             transition={{ delay: 0.1 }}
             className="lg:col-span-2"
           >
-            <div className="bg-white rounded-2xl shadow-xl border border-champagne-100 p-8">
+            <div className="bg-white rounded-2xl shadow-xl border border-rose-100 p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Business Info */}
                 <div>
@@ -223,7 +223,7 @@ export default function JoinContent({ categories }: { categories: Category[] }) 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-xl hover:from-champagne-700 hover:to-champagne-800 transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2 text-lg"
+                  className="w-full py-4 bg-gradient-to-r from-rose-400 to-rose-500 text-white font-semibold rounded-xl hover:from-rose-600 hover:to-rose-700 transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2 text-lg"
                 >
                   {loading && <Loader2 className="w-5 h-5 animate-spin" />}
                   {t.join.submit}

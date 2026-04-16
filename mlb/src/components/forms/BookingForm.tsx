@@ -55,14 +55,14 @@ export default function BookingForm({ vendorId, vendorName, onClose }: Props) {
           {t.booking.success.split("!")[0]}!
         </h3>
         <p className="text-sm text-charcoal-500">{t.booking.success}</p>
-        <button onClick={onClose} className="mt-4 text-sm text-champagne-700 font-medium hover:text-champagne-800">
+        <button onClick={onClose} className="mt-4 text-sm text-rose-600 font-medium hover:text-rose-700">
           {t.common.back}
         </button>
       </div>
     );
   }
 
-  const inputClass = "w-full px-4 py-3 bg-ivory-50 border border-champagne-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300 focus:border-transparent transition-all";
+  const inputClass = "w-full px-4 py-3 bg-ivory-50 border border-rose-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all";
 
   return (
     <div>
@@ -134,7 +134,7 @@ export default function BookingForm({ vendorId, vendorName, onClose }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3.5 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-xl hover:from-champagne-700 hover:to-champagne-800 transition-all shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
+          className="w-full py-3.5 bg-gradient-to-r from-rose-400 to-rose-500 text-white font-semibold rounded-xl hover:from-rose-600 hover:to-rose-700 transition-all shadow-md disabled:opacity-50 flex items-center justify-center gap-2"
         >
           {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
           {t.booking.submit}

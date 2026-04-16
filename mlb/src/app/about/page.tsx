@@ -53,9 +53,9 @@ export default function AboutPage() {
                   { icon: Globe, title: locale === "mk" ? "Пристапност" : "Access", desc: locale === "mk" ? "Лесна платформа за сите" : "Easy platform for everyone" },
                   { icon: Award, title: locale === "mk" ? "Доверба" : "Trust", desc: locale === "mk" ? "Верифицирани професионалци" : "Verified professionals" },
                 ].map((item, i) => (
-                  <div key={i} className="bg-ivory-50 rounded-2xl p-6 border border-champagne-100 text-center">
-                    <div className="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-champagne-100 to-champagne-200 rounded-2xl flex items-center justify-center">
-                      <item.icon className="w-7 h-7 text-champagne-700" />
+                  <div key={i} className="bg-ivory-50 rounded-2xl p-6 border border-rose-100 text-center">
+                    <div className="w-14 h-14 mx-auto mb-4 bg-gradient-to-br from-rose-100 to-rose-200 rounded-2xl flex items-center justify-center">
+                      <item.icon className="w-7 h-7 text-rose-600" />
                     </div>
                     <h3 className="font-serif font-semibold text-charcoal-900 mb-1">{item.title}</h3>
                     <p className="text-sm text-charcoal-500">{item.desc}</p>
@@ -87,8 +87,8 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.15 }}
                 className="bg-charcoal-800/50 backdrop-blur-sm rounded-2xl p-8 border border-charcoal-700/50"
               >
-                <div className="w-16 h-16 mx-auto mb-6 bg-champagne-600/20 rounded-2xl flex items-center justify-center">
-                  <item.icon className="w-8 h-8 text-champagne-400" />
+                <div className="w-16 h-16 mx-auto mb-6 bg-rose-500/20 rounded-2xl flex items-center justify-center">
+                  <item.icon className="w-8 h-8 text-rose-300" />
                 </div>
                 <h3 className="text-xl font-serif font-semibold mb-3">{item.title}</h3>
                 <p className="text-ivory-300 leading-relaxed">{item.desc}</p>

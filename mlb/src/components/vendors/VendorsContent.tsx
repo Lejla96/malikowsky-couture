@@ -119,7 +119,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
   return (
     <div className="min-h-screen bg-ivory-50">
       {/* Hero */}
-      <div className="bg-gradient-to-b from-champagne-50 to-ivory-50 pt-12 pb-8">
+      <div className="bg-gradient-to-b from-rose-50 to-ivory-50 pt-12 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-charcoal-900 mb-3">
@@ -132,7 +132,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
 
           {/* Search */}
           <div className="max-w-2xl mx-auto mb-6">
-            <div className="relative flex items-center bg-white rounded-xl shadow-md border border-champagne-100 overflow-hidden">
+            <div className="relative flex items-center bg-white rounded-xl shadow-md border border-rose-100 overflow-hidden">
               <Search className="absolute left-4 w-5 h-5 text-charcoal-400" />
               <input
                 type="text"
@@ -153,12 +153,12 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
           <div className="flex justify-center">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-champagne-200 text-sm font-medium text-charcoal-700 hover:bg-champagne-50 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-rose-200 text-sm font-medium text-charcoal-700 hover:bg-rose-50 transition-colors"
             >
               <Filter className="w-4 h-4" />
               {t.common.filter}
               {activeFilters > 0 && (
-                <span className="w-5 h-5 bg-champagne-600 text-white text-xs rounded-full flex items-center justify-center">
+                <span className="w-5 h-5 bg-rose-500 text-white text-xs rounded-full flex items-center justify-center">
                   {activeFilters}
                 </span>
               )}
@@ -175,7 +175,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden bg-white border-b border-champagne-100"
+            className="overflow-hidden bg-white border-b border-rose-100"
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -187,7 +187,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-ivory-50 border border-champagne-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+                    className="w-full px-3 py-2.5 bg-ivory-50 border border-rose-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
                   >
                     <option value="">{t.vendors.allCategories}</option>
                     {categories.map((cat) => (
@@ -206,7 +206,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                   <select
                     value={selectedCity}
                     onChange={(e) => setSelectedCity(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-ivory-50 border border-champagne-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+                    className="w-full px-3 py-2.5 bg-ivory-50 border border-rose-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
                   >
                     <option value="">{t.vendors.allLocations}</option>
                     {cities.map((city) => (
@@ -223,7 +223,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                   <select
                     value={selectedEventType}
                     onChange={(e) => setSelectedEventType(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-ivory-50 border border-champagne-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+                    className="w-full px-3 py-2.5 bg-ivory-50 border border-rose-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
                   >
                     <option value="">{t.vendors.allEventTypes}</option>
                     {eventTypes.map((type) => (
@@ -240,7 +240,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-3 py-2.5 bg-ivory-50 border border-champagne-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+                    className="w-full px-3 py-2.5 bg-ivory-50 border border-rose-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
                   >
                     <option value="featured">{t.vendors.sortByFeatured}</option>
                     <option value="rating">{t.vendors.sortByRating}</option>
@@ -253,7 +253,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
               {activeFilters > 0 && (
                 <button
                   onClick={() => { setSelectedCategory(""); setSelectedCity(""); setSelectedEventType(""); }}
-                  className="mt-4 text-sm text-champagne-700 hover:text-champagne-800 font-medium"
+                  className="mt-4 text-sm text-rose-600 hover:text-rose-700 font-medium"
                 >
                   {locale === "mk" ? "Исчисти ги сите филтри" : "Clear all filters"}
                 </button>
@@ -283,21 +283,21 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(index * 0.05, 0.5) }}
               >
-                <div className="group bg-white rounded-2xl overflow-hidden border border-champagne-100/50 shadow-sm premium-card">
+                <div className="group bg-white rounded-2xl overflow-hidden border border-rose-100/50 shadow-sm premium-card">
                   {/* Image */}
-                  <div className="relative h-52 bg-gradient-to-br from-champagne-100 to-champagne-200">
+                  <div className="relative h-52 bg-gradient-to-br from-rose-100 to-rose-200">
                     {vendor.coverPhoto ? (
                       <img src={vendor.coverPhoto} alt={vendor.businessName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-5xl font-serif font-bold text-champagne-300">
+                        <span className="text-5xl font-serif font-bold text-rose-300">
                           {vendor.businessName.charAt(0)}
                         </span>
                       </div>
                     )}
 
                     {vendor.featured && (
-                      <div className="absolute top-4 left-4 px-3 py-1 bg-champagne-600 text-white text-xs font-semibold rounded-full shadow-sm">
+                      <div className="absolute top-4 left-4 px-3 py-1 bg-rose-500 text-white text-xs font-semibold rounded-full shadow-sm">
                         {t.common.featured}
                       </div>
                     )}
@@ -311,19 +311,19 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                       </button>
                     </div>
 
-                    <div className="absolute bottom-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-champagne-700">
+                    <div className="absolute bottom-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-rose-600">
                       {locale === "mk" ? vendor.category.nameMk : vendor.category.name}
                     </div>
                   </div>
 
                   {/* Content */}
                   <Link href={`/vendors/${vendor.slug}`} className="block p-5">
-                    <h3 className="text-lg font-serif font-bold text-charcoal-900 group-hover:text-champagne-700 transition-colors mb-2">
+                    <h3 className="text-lg font-serif font-bold text-charcoal-900 group-hover:text-rose-600 transition-colors mb-2">
                       {vendor.businessName}
                     </h3>
                     <div className="flex items-center gap-3 mb-3">
                       <div className="flex items-center gap-1">
-                        <Star className="w-4 h-4 text-champagne-500 fill-champagne-500" />
+                        <Star className="w-4 h-4 text-rose-500 fill-rose-500" />
                         <span className="text-sm font-semibold">{vendor.rating.toFixed(1)}</span>
                         <span className="text-xs text-charcoal-400">({vendor.reviewCount})</span>
                       </div>
@@ -339,7 +339,7 @@ export default function VendorsContent({ initialVendors, categories, cities }: P
                       {locale === "mk" && vendor.descriptionMk ? vendor.descriptionMk : vendor.description}
                     </p>
                     <div className="flex gap-2">
-                      <span className="flex-1 text-center py-2.5 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white text-sm font-semibold rounded-lg hover:from-champagne-700 hover:to-champagne-800 transition-all">
+                      <span className="flex-1 text-center py-2.5 bg-gradient-to-r from-rose-400 to-rose-500 text-white text-sm font-semibold rounded-lg hover:from-rose-600 hover:to-rose-700 transition-all">
                         {t.vendors.viewProfile}
                       </span>
                     </div>
