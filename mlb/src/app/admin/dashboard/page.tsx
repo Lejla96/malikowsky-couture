@@ -90,6 +90,8 @@ export default function AdminDashboard() {
   const [savingContent, setSavingContent] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState("");
 
   const checkAuth = useCallback(async () => {
     try {
@@ -197,6 +199,40 @@ export default function AdminDashboard() {
   const updateContentField = (section: string, field: string, value: string) => {
     if (!content) return;
     setContent({ ...content, [section]: { ...content[section], [field]: value } });
+  };
+
+  const handleVideoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 100 * 1024 * 1024) {
+      setUploadProgress("File too large! Max 100MB.");
+      return;
+    }
+
+    setUploadingVideo(true);
+    setUploadProgress("Uploading video...");
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Upload failed");
+      }
+
+      const data = await res.json();
+      updateContentField("hero", "videoUrl", data.url);
+      setUploadProgress("Uploaded! Click Save Video to apply.");
+    } catch (err) {
+      setUploadProgress(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploadingVideo(false);
+      e.target.value = "";
+    }
   };
 
   const updateTestimonial = (index: number, field: string, value: string) => {
@@ -500,23 +536,66 @@ export default function AdminDashboard() {
                     {/* Video Background - at the top for easy access */}
                     <div className="p-5 bg-rose-50 rounded-xl border border-rose-200 mb-4">
                       <div className="flex items-center justify-between mb-4">
-                        <p className="text-sm font-semibold text-charcoal-800 flex items-center gap-2">🎬 Video Background</p>
+                        <p className="text-sm font-semibold text-charcoal-800 flex items-center gap-2">🎬 Hero Video Background</p>
                         <button onClick={() => saveContentSection("hero")} disabled={savingContent === "hero"}
                           className="inline-flex items-center gap-2 px-5 py-2.5 bg-rose-500 text-white text-sm font-semibold rounded-full hover:bg-rose-600 transition-all disabled:opacity-50 shadow-md">
                           {savingContent === "hero" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                           {saveSuccess === "hero" ? "✓ Saved!" : "Save Video"}
                         </button>
                       </div>
-                      <div className="space-y-3">
-                        <div>
-                          <label className={labelClass}>Video URL (MP4) — paste a direct link to your video</label>
-                          <input type="url" value={content?.hero?.videoUrl || ""} onChange={(e) => updateContentField("hero", "videoUrl", e.target.value)} className={inputClass} placeholder="https://example.com/video.mp4" />
-                          <p className="text-xs text-charcoal-400 mt-1">Find free videos at <a href="https://www.pexels.com/search/videos/wedding/" target="_blank" className="text-rose-500 underline">pexels.com/videos</a> — leave empty for gradient background</p>
+
+                      <div className="space-y-4">
+                        {/* Upload from laptop */}
+                        <div className="p-4 bg-white rounded-xl border-2 border-dashed border-rose-300">
+                          <label className={labelClass}>Upload video from your computer</label>
+                          <div className="flex items-center gap-3 mt-2">
+                            <label className={`inline-flex items-center gap-2 px-5 py-3 bg-charcoal-900 text-white text-sm font-semibold rounded-full hover:bg-charcoal-800 transition-all cursor-pointer ${uploadingVideo ? "opacity-50 pointer-events-none" : ""}`}>
+                              {uploadingVideo ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>📁</span>}
+                              {uploadingVideo ? "Uploading..." : "Choose Video File"}
+                              <input type="file" accept="video/mp4,video/webm,video/quicktime" onChange={handleVideoUpload} className="hidden" disabled={uploadingVideo} />
+                            </label>
+                            {uploadProgress && (
+                              <p className={`text-sm font-medium ${uploadProgress.includes("failed") || uploadProgress.includes("too large") ? "text-red-500" : "text-green-600"}`}>
+                                {uploadProgress}
+                              </p>
+                            )}
+                          </div>
+                          <p className="text-xs text-charcoal-400 mt-2">MP4, WebM, or MOV — max 100MB. After uploading, click &quot;Save Video&quot; to apply.</p>
                         </div>
+
+                        {/* Or paste URL */}
+                        <div className="flex items-center gap-3">
+                          <div className="h-px flex-1 bg-rose-200" />
+                          <span className="text-xs text-charcoal-400 font-medium">OR paste a URL</span>
+                          <div className="h-px flex-1 bg-rose-200" />
+                        </div>
+
+                        <div>
+                          <label className={labelClass}>Video URL (MP4)</label>
+                          <input type="url" value={content?.hero?.videoUrl || ""} onChange={(e) => updateContentField("hero", "videoUrl", e.target.value)} className={inputClass} placeholder="https://example.com/video.mp4" />
+                        </div>
+
+                        {/* Preview */}
+                        {content?.hero?.videoUrl && (
+                          <div>
+                            <label className={labelClass}>Preview</label>
+                            <video src={content.hero.videoUrl} className="w-full max-w-md h-40 object-cover rounded-lg bg-charcoal-100" muted autoPlay loop playsInline />
+                          </div>
+                        )}
+
+                        {/* Overlay control */}
                         <div className="max-w-xs">
                           <label className={labelClass}>Overlay Darkness (0 = light, 1 = very dark)</label>
-                          <input type="text" value={content?.hero?.videoOverlayOpacity || "0.55"} onChange={(e) => updateContentField("hero", "videoOverlayOpacity", e.target.value)} className={inputClass} placeholder="0.55" />
+                          <input type="text" value={content?.hero?.videoOverlayOpacity || "0.4"} onChange={(e) => updateContentField("hero", "videoOverlayOpacity", e.target.value)} className={inputClass} placeholder="0.4" />
                         </div>
+
+                        {/* Remove video */}
+                        {content?.hero?.videoUrl && (
+                          <button onClick={() => { updateContentField("hero", "videoUrl", ""); setUploadProgress(""); }}
+                            className="text-sm text-red-500 hover:text-red-700 font-medium">
+                            ✕ Remove video (use gradient background instead)
+                          </button>
+                        )}
                       </div>
                     </div>
 
