@@ -51,7 +51,7 @@ export default function ReviewForm({ vendorId, onClose }: Props) {
             ? "Вашата рецензија е поднесена и чека одобрување."
             : "Your review has been submitted and is pending approval."}
         </p>
-        <button onClick={onClose} className="mt-3 text-sm text-champagne-700 font-medium">{locale === "mk" ? "Затвори" : "Close"}</button>
+        <button onClick={onClose} className="mt-3 text-sm text-rose-600 font-medium">{locale === "mk" ? "Затвори" : "Close"}</button>
       </div>
     );
   }
@@ -75,7 +75,7 @@ export default function ReviewForm({ vendorId, onClose }: Props) {
               <Star
                 className={`w-7 h-7 transition-colors ${
                   i <= (hoveredRating || rating)
-                    ? "text-champagne-500 fill-champagne-500"
+                    ? "text-rose-500 fill-rose-500"
                     : "text-charcoal-200"
                 }`}
               />
@@ -93,7 +93,7 @@ export default function ReviewForm({ vendorId, onClose }: Props) {
           required
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
-          className="w-full px-4 py-3 bg-white border border-champagne-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+          className="w-full px-4 py-3 bg-white border border-rose-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
         />
       </div>
 
@@ -106,7 +106,7 @@ export default function ReviewForm({ vendorId, onClose }: Props) {
           required
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
-          className="w-full px-4 py-3 bg-white border border-champagne-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+          className="w-full px-4 py-3 bg-white border border-rose-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
         />
       </div>
 
@@ -119,7 +119,7 @@ export default function ReviewForm({ vendorId, onClose }: Props) {
           rows={3}
           value={form.comment}
           onChange={(e) => setForm({ ...form, comment: e.target.value })}
-          className="w-full px-4 py-3 bg-white border border-champagne-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300"
+          className="w-full px-4 py-3 bg-white border border-rose-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300"
         />
       </div>
 
@@ -128,7 +128,7 @@ export default function ReviewForm({ vendorId, onClose }: Props) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-xl hover:from-champagne-700 hover:to-champagne-800 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+        className="w-full py-3 bg-gradient-to-r from-rose-400 to-rose-500 text-white font-semibold rounded-xl hover:from-rose-600 hover:to-rose-700 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
       >
         {loading && <Loader2 className="w-4 h-4 animate-spin" />}
         {locale === "mk" ? "Поднеси рецензија" : "Submit Review"}

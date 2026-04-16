@@ -20,61 +20,64 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-champagne-200/50 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-rose-100/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-champagne-500 to-champagne-700 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <span className="text-white font-serif font-bold text-lg">M</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="w-9 h-9 bg-gradient-to-br from-rose-300 to-rose-400 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
+                <span className="text-white font-serif font-bold text-base">M</span>
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-champagne-300 rounded-full border-2 border-white" />
             </div>
             <div>
-              <span className="text-2xl font-serif font-bold text-charcoal-900 tracking-tight">MLB</span>
-              <span className="hidden sm:block text-[10px] uppercase tracking-[0.2em] text-champagne-600 -mt-1">
+              <span className="text-xl font-serif font-semibold text-charcoal-900 tracking-tight">MLB</span>
+              <span className="hidden sm:block text-[9px] uppercase tracking-[0.25em] text-rose-400 font-medium -mt-0.5">
                 Marketplace
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-charcoal-700 hover:text-champagne-700 transition-colors text-sm font-medium tracking-wide uppercase"
+                className="text-charcoal-500 hover:text-charcoal-900 transition-colors text-[13px] font-medium tracking-wide"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            {/* Language Toggle */}
+          {/* Right */}
+          <div className="flex items-center gap-2">
+            {/* Language */}
             <div className="relative">
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="flex items-center gap-1 text-charcoal-600 hover:text-champagne-700 transition-colors px-2 py-1 rounded-md hover:bg-champagne-50"
+                className="flex items-center gap-1 text-charcoal-500 hover:text-charcoal-800 transition-colors px-2.5 py-1.5 rounded-full hover:bg-rose-50"
               >
-                <Globe className="w-4 h-4" />
+                <Globe className="w-3.5 h-3.5" />
                 <span className="text-xs font-medium uppercase">{locale}</span>
                 <ChevronDown className="w-3 h-3" />
               </button>
               <AnimatePresence>
                 {langOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    className="absolute right-0 mt-2 w-36 bg-white rounded-lg shadow-xl border border-champagne-100 py-1 z-50"
+                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                    className="absolute right-0 mt-2 w-36 bg-white rounded-xl shadow-lg shadow-rose-100/50 border border-rose-100/60 py-1.5 z-50"
                   >
                     {(["en", "mk"] as Locale[]).map((lang) => (
                       <button
                         key={lang}
                         onClick={() => { setLocale(lang); setLangOpen(false); }}
-                        className={`w-full text-left px-4 py-2 text-sm hover:bg-champagne-50 transition-colors ${
-                          locale === lang ? "text-champagne-700 font-semibold" : "text-charcoal-700"
+                        className={`w-full text-left px-4 py-2 text-sm hover:bg-rose-50 transition-colors rounded-lg mx-0 ${
+                          locale === lang ? "text-rose-500 font-semibold" : "text-charcoal-600"
                         }`}
                       >
                         {t.common.languages[lang]}
@@ -85,41 +88,41 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <Link
               href="/vendors"
-              className="hidden sm:inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white text-sm font-semibold rounded-lg hover:from-champagne-700 hover:to-champagne-800 transition-all shadow-md hover:shadow-lg"
+              className="hidden sm:inline-flex items-center px-5 py-2 bg-charcoal-900 text-white text-xs font-semibold rounded-full hover:bg-charcoal-800 transition-all tracking-wide"
             >
               {t.nav.planEvent}
             </Link>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2 text-charcoal-700 hover:text-champagne-700 transition-colors"
+              className="lg:hidden p-2 text-charcoal-600 hover:text-charcoal-900 transition-colors"
             >
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Nav */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden overflow-hidden bg-white border-t border-champagne-100"
+            className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-rose-100/40"
           >
-            <nav className="px-4 py-4 space-y-1">
+            <nav className="px-4 py-5 space-y-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 text-charcoal-700 hover:text-champagne-700 hover:bg-champagne-50 rounded-lg transition-colors font-medium"
+                  className="block px-4 py-3 text-charcoal-600 hover:text-charcoal-900 hover:bg-rose-50 rounded-xl transition-colors text-sm font-medium"
                 >
                   {link.label}
                 </Link>
@@ -127,7 +130,7 @@ export default function Header() {
               <Link
                 href="/vendors"
                 onClick={() => setMobileOpen(false)}
-                className="block px-4 py-3 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white text-center rounded-lg font-semibold mt-2"
+                className="block px-4 py-3 bg-charcoal-900 text-white text-center rounded-xl font-semibold mt-3 text-sm"
               >
                 {t.nav.planEvent}
               </Link>

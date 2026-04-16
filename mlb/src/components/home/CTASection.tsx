@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useTranslation } from "@/i18n";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import type { SiteContent } from "@/lib/content";
 
@@ -11,31 +11,31 @@ export default function CTASection({ content }: { content: SiteContent["cta"] })
 
   return (
     <section className="py-24 luxury-gradient relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-champagne-200/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-champagne-100/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-rose-200/15 rounded-full blur-3xl -translate-y-1/3 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-champagne-200/15 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3" />
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-champagne-100 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-champagne-600" />
-            <span className="text-sm font-semibold text-champagne-700">
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-rose-100/60 rounded-full mb-6">
+            <Heart className="w-3.5 h-3.5 text-rose-400 fill-rose-400" />
+            <span className="text-xs font-semibold text-rose-600 tracking-wide">
               {locale === "mk" ? content.badgeMk : content.badgeEn}
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-charcoal-900 mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold text-charcoal-900 mb-5 leading-tight">
             {locale === "mk" ? content.titleMk : content.titleEn}
           </h2>
-          <p className="text-lg text-charcoal-600 max-w-2xl mx-auto mb-10">
+          <p className="text-base text-charcoal-500 max-w-lg mx-auto mb-10 font-light">
             {locale === "mk" ? content.subtitleMk : content.subtitleEn}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link href="/vendors"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-charcoal-900 text-white font-semibold rounded-xl hover:bg-charcoal-800 transition-all shadow-lg group">
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-rose-400 text-white text-sm font-semibold rounded-full hover:bg-rose-500 transition-all shadow-lg shadow-rose-300/25 group">
               {locale === "mk" ? "Планирај го настанот" : "Plan Your Event"}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
             <Link href="/join"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-charcoal-900 font-semibold rounded-xl border-2 border-champagne-200 hover:border-champagne-400 transition-all">
+              className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-charcoal-800 text-sm font-medium rounded-full border border-rose-200 hover:border-rose-300 hover:bg-rose-50 transition-all">
               {locale === "mk" ? "Придружи се на MLB" : "Join MLB"}
             </Link>
           </div>

@@ -16,34 +16,33 @@ export default function HowItWorks({ content }: { content: SiteContent["howItWor
 
   return (
     <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-charcoal-900 mb-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+          <p className="text-xs uppercase tracking-[0.25em] text-rose-400 font-semibold mb-3">
+            {locale === "mk" ? "Процес" : "Process"}
+          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold text-charcoal-900 mb-4">
             {locale === "mk" ? content.titleMk : content.titleEn}
           </h2>
-          <p className="text-lg text-charcoal-500 max-w-2xl mx-auto">
+          <p className="text-base text-charcoal-500 max-w-lg mx-auto font-light">
             {locale === "mk" ? content.subtitleMk : content.subtitleEn}
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-champagne-400 to-champagne-600 mx-auto mt-6 rounded-full" />
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, index) => (
-            <motion.div key={step.step} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.15 }}
-              className="relative text-center group">
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-[60%] w-[80%] h-px bg-gradient-to-r from-champagne-300 to-champagne-100" />
-              )}
-              <div className="relative inline-flex">
-                <div className="w-32 h-32 mx-auto bg-gradient-to-br from-champagne-50 to-champagne-100 group-hover:from-champagne-100 group-hover:to-champagne-200 rounded-3xl flex items-center justify-center transition-colors duration-300 shadow-sm border border-champagne-100">
-                  <step.icon className="w-12 h-12 text-champagne-600" />
+            <motion.div key={step.step} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.12 }}
+              className="text-center group">
+              <div className="relative inline-flex mb-6">
+                <div className="w-20 h-20 bg-rose-50 group-hover:bg-rose-100 rounded-full flex items-center justify-center transition-colors duration-300">
+                  <step.icon className="w-8 h-8 text-rose-400" />
                 </div>
-                <div className="absolute -top-2 -right-2 w-10 h-10 bg-gradient-to-br from-champagne-500 to-champagne-700 rounded-xl flex items-center justify-center shadow-md">
-                  <span className="text-white text-sm font-bold">{step.step}</span>
+                <div className="absolute -top-1 -right-1 w-7 h-7 bg-charcoal-900 rounded-full flex items-center justify-center">
+                  <span className="text-white text-[10px] font-bold">{step.step}</span>
                 </div>
               </div>
-              <h3 className="text-xl font-serif font-bold text-charcoal-900 mt-6 mb-3">{step.title}</h3>
-              <p className="text-charcoal-500 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
+              <h3 className="text-xl font-serif font-semibold text-charcoal-900 mb-3">{step.title}</h3>
+              <p className="text-sm text-charcoal-500 leading-relaxed max-w-xs mx-auto font-light">{step.desc}</p>
             </motion.div>
           ))}
         </div>

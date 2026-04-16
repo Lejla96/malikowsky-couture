@@ -19,7 +19,7 @@ export default function ContactPage() {
     setLoading(false);
   };
 
-  const inputClass = "w-full px-4 py-3 bg-ivory-50 border border-champagne-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-champagne-300 focus:border-transparent transition-all";
+  const inputClass = "w-full px-4 py-3 bg-ivory-50 border border-rose-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-transparent transition-all";
 
   return (
     <div className="min-h-screen luxury-gradient py-16">
@@ -34,7 +34,7 @@ export default function ContactPage() {
               ? "Имате прашања? Ние сме тука да помогнеме."
               : "Have questions? We're here to help. Reach out to our team."}
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-champagne-400 to-champagne-600 mx-auto mt-6 rounded-full" />
+          <div className="w-20 h-1 bg-gradient-to-r from-rose-300 to-rose-500 mx-auto mt-6 rounded-full" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -49,10 +49,10 @@ export default function ContactPage() {
                 <a
                   key={i}
                   href={item.link}
-                  className="flex items-start gap-4 bg-white rounded-2xl p-6 border border-champagne-100 shadow-sm hover:shadow-md transition-shadow"
+                  className="flex items-start gap-4 bg-white rounded-2xl p-6 border border-rose-100 shadow-sm hover:shadow-md transition-shadow"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-champagne-100 to-champagne-200 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-6 h-6 text-champagne-700" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-rose-100 to-rose-200 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-6 h-6 text-rose-600" />
                   </div>
                   <div>
                     <h3 className="font-serif font-semibold text-charcoal-900">{item.title}</h3>
@@ -65,7 +65,7 @@ export default function ContactPage() {
 
           {/* Form */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-xl border border-champagne-100 p-8">
+            <div className="bg-white rounded-2xl shadow-xl border border-rose-100 p-8">
               {success ? (
                 <div className="text-center py-12">
                   <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -108,7 +108,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 bg-gradient-to-r from-champagne-600 to-champagne-700 text-white font-semibold rounded-xl hover:from-champagne-700 hover:to-champagne-800 transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-gradient-to-r from-rose-400 to-rose-500 text-white font-semibold rounded-xl hover:from-rose-600 hover:to-rose-700 transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
                     {locale === "mk" ? "Испрати порака" : "Send Message"}
