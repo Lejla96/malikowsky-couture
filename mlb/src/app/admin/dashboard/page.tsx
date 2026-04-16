@@ -498,8 +498,15 @@ export default function AdminDashboard() {
                   {/* Hero Section */}
                   <SectionCard title="Hero Section (Homepage Banner)" section="hero">
                     {/* Video Background - at the top for easy access */}
-                    <div className="p-4 bg-rose-50 rounded-xl border border-rose-200 mb-4">
-                      <p className="text-sm font-semibold text-charcoal-800 mb-3 flex items-center gap-2">🎬 Video Background</p>
+                    <div className="p-5 bg-rose-50 rounded-xl border border-rose-200 mb-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <p className="text-sm font-semibold text-charcoal-800 flex items-center gap-2">🎬 Video Background</p>
+                        <button onClick={() => saveContentSection("hero")} disabled={savingContent === "hero"}
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-rose-500 text-white text-sm font-semibold rounded-full hover:bg-rose-600 transition-all disabled:opacity-50 shadow-md">
+                          {savingContent === "hero" ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                          {saveSuccess === "hero" ? "✓ Saved!" : "Save Video"}
+                        </button>
+                      </div>
                       <div className="space-y-3">
                         <div>
                           <label className={labelClass}>Video URL (MP4) — paste a direct link to your video</label>
